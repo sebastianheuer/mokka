@@ -1,0 +1,11 @@
+class %className% extends %mockedClass% implements \Mokka\MockInterface
+{
+    use \Mokka\Mock;
+
+    public function __construct()
+    {
+
+    }
+
+    %functions%
+}

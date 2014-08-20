@@ -1,0 +1,4 @@
+public function %name%()
+{
+    return $this->_getMockedResult('%name%', func_get_args());
+}
