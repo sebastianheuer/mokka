@@ -11,8 +11,8 @@ require_once __DIR__ . '/src/framework/autoload.php';
 $mokka = new Mokka();
 
 // now you can create a mock of any class
-$foo = $mokka->mock(Foo::class); // the class constant is available since PHP 5.5
-$foo = $mokka->mock('Foo');      // use this in PHP 5.4
+$foo = $mokka->mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
+$foo = $mokka->mock('\Acme\Foo');      // use this in PHP 5.4
 
 // by default, all methods of the mocked class return NULL
 var_dump($foo->getBar()); // => NULL
