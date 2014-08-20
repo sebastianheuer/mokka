@@ -30,6 +30,8 @@ class Mokka
             $functions[] = $this->_getFunction($method);
         }
         $classDefinition = str_replace('%functions%', implode("\n", $functions), $classDefinition);
+        /* TODO this is probably the most evil line of code I have ever written.
+           Maybe there is a nicer way to dynamically create a class */
         eval($classDefinition);
         $mock = new $mockClassname();
         $mock->setOwner($this);
