@@ -2,6 +2,10 @@
 
 The goal of Mokka is to provide a lightweight framework for creating mocks and stubs. It's syntax is heavily inspired by the [Mockito Framework](https://code.google.com/p/mockito/).
 
+##Prerequisites
+
+Mokka needs PHP 5.4.0+. PHP 5.5.0+ is recommended.
+
 ##Usage
 
 ```php
