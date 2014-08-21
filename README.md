@@ -38,5 +38,4 @@ $mokka->when($mock)->getBar('baz')->thenReturn('foobar');
 var_dump($foo->getBar('foo')); // => NULL
 
 echo $foo->getBar('baz'); // => foobar
-?>
 ```
