@@ -8,6 +8,7 @@ Mokka needs PHP 5.4.0+. PHP 5.5.0+ is recommended.
 
 ##Building a Phar
 
+Note: Make sure to have ```phar.readonly = Off``` in your php.ini. Otherwise building Phars is not possible. 
 You can run ```php buildPhar.php``` to build a Phar package. It will be put in /build/mokka.phar. You can then include it in your projects:
 
 ```php
