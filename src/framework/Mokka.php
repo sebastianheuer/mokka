@@ -59,7 +59,7 @@ class Mokka
      */
     private function _getClass($mockClassname, $classname)
     {
-        $classDefinition = file_get_contents(__DIR__ . '/../template/Class.php.template');
+        $classDefinition = file_get_contents(__DIR__ . '/template/Class.php.template');
         $classDefinition = str_replace('%className%', $mockClassname, $classDefinition);
         $classDefinition = str_replace('%mockedClass%', $classname, $classDefinition);
         $reflection = new \ReflectionClass($classname);
@@ -81,7 +81,7 @@ class Mokka
      */
     private function _getFunction(\ReflectionMethod $method)
     {
-        $functionDefinition = file_get_contents(__DIR__ . '/../template/Function.php.template');
+        $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');
         $functionDefinition = str_replace('%name%', $method->getName(), $functionDefinition);
         return $functionDefinition;
     }
