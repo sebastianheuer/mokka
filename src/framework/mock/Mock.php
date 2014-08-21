@@ -46,7 +46,7 @@ trait Mock
      * @param string $name
      * @param \Mokka\Method $method
      */
-    public function addMethod($identifier, $name, Method $method)
+    private function _addMethod($identifier, $name, Method $method)
     {
         $this->_methods[$identifier] = $method;
         $this->_listening = FALSE;
@@ -64,12 +64,12 @@ trait Mock
     }
 
     /**
-     * @param $return
+     * @param mixed $returnValue
      */
-    public function addStub($return)
+    public function addStub($returnValue)
     {
         $identifier = $this->_getIdentifier($this->_lastMethod, $this->_lastArgs);
-        $this->addMethod($identifier, $this->_lastMethod, new StubbedMethod($this->_lastArgs, $return));
+        $this->_addMethod($identifier, $this->_lastMethod, new StubbedMethod($this->_lastArgs, $returnValue));
         $this->_listeningForStub = FALSE;
     }
 
@@ -87,14 +87,14 @@ trait Mock
      * @param array $args
      * @return NULL
      */
-    private function _getMockedResult($originalMethod, array $args)
+    private function _call($originalMethod, array $args)
     {
         $this->_lastMethod = $originalMethod;
         $identifier = $this->_getIdentifier($originalMethod, $args);
 
         if ($this->_listening) {
             $this->_lastArgs = $args;
-            $this->addMethod($identifier, $originalMethod, new MockedMethod($args));
+            $this->_addMethod($identifier, $originalMethod, new MockedMethod($args));
             if ($this->_listeningForStub) {
                 return $this->_owner;
             }

@@ -31,4 +31,5 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
         $method = new MockedMethod(array('foo'));
         $this->assertNull($method->call(array('foo')));
     }
+
 } 
