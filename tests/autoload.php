@@ -7,9 +7,11 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'mokka\\tests\\classstub' => '/framework/ClassStub.php',
                 'mokka\\tests\\mockedmethodtest' => '/framework/method/MockedMethodTest.php',
                 'mokka\\tests\\mockstub' => '/framework/mock/MockStub.php',
                 'mokka\\tests\\mocktest' => '/framework/mock/MockTest.php',
+                'mokka\\tests\\mokkatest' => '/framework/MokkaTest.php',
                 'mokka\\tests\\stubbedmethodtest' => '/framework/method/StubbedMethodTest.php',
                 'mokka\\tests\\tokentest' => '/framework/TokenTest.php'
             );

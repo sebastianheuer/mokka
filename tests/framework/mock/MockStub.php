@@ -2,13 +2,14 @@
 namespace Mokka\Tests;
 
 use Mokka\Mock;
+use Mokka\MockInterface;
 
 /**
  * Stub that uses the Mock trait
  * Behaves like the dynamically created mock classes
  * Used for testing Mock
  */
-class MockStub
+class MockStub implements MockInterface
 {
     use Mock;
 
