@@ -12,7 +12,6 @@ You can run ```php buildPhar.php``` to build a Phar package. It will be put in /
 
 ```php
 <?php
-
 require __DIR__ . '/mokka.phar';
 $mokka = new Mokka\Mokka();
 ```
@@ -21,9 +20,9 @@ $mokka = new Mokka\Mokka();
 
 ```php
 <?php 
-// include autloading and create a new Mokka instance
-require_once __DIR__ . '/src/framework/autoload.php';
-$mokka = new Mokka();
+// include the Phar package and create a new Mokka instance
+require __DIR__ . '/mokka.phar';
+$mokka = new Mokka\Mokka();
 
 // now you can create a mock of any class
 $foo = $mokka->mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
