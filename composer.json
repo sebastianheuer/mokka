@@ -4,9 +4,7 @@
     "description": "Mokka PHP Mocking Framework",
     "keywords": ["mokka", "mocking", "stubbing"],
     "autoload": {
-        "psr-0": {
-            "Mokka\\": "src"
-        }
+        "classmap": ["src/"]
     },
     "minimum-stability": "dev"
 }
