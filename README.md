@@ -6,13 +6,25 @@ The goal of Mokka is to provide a lightweight framework for creating mocks and s
 
 Mokka needs PHP 5.4.0+. PHP 5.5.0+ is recommended.
 
+##Building a Phar
+
+Note: Make sure to have ```phar.readonly = Off``` in your php.ini. Otherwise building Phars is not possible. 
+
+You can run ```php buildPhar.php``` to build a Phar package. It will be put in /build/mokka.phar. You can then include it in your projects:
+
+```php
+<?php
+require __DIR__ . '/mokka.phar';
+$mokka = new Mokka\Mokka();
+```
+
 ##Usage
 
 ```php
 <?php 
-// include autloading and create a new Mokka instance
-require_once __DIR__ . '/src/framework/autoload.php';
-$mokka = new Mokka();
+// include the Phar package and create a new Mokka instance
+require __DIR__ . '/mokka.phar';
+$mokka = new Mokka\Mokka();
 
 // now you can create a mock of any class
 $foo = $mokka->mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
@@ -28,5 +40,4 @@ $mokka->when($mock)->getBar('baz')->thenReturn('foobar');
 var_dump($foo->getBar('foo')); // => NULL
 
 echo $foo->getBar('baz'); // => foobar
-?>
 ```
