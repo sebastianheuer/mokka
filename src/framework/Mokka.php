@@ -1,6 +1,9 @@
 <?php
 namespace Mokka;
 
+use Mokka\Mock\Mock;
+use Mokka\Mock\MockInterface;
+
 class Mokka
 {
     /**
@@ -83,6 +86,12 @@ class Mokka
     {
         $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');
         $functionDefinition = str_replace('%name%', $method->getName(), $functionDefinition);
+        $arguments = '';
+        foreach ($method->getParameters() as $parameter) {
+            $arguments .= $parameter->getClass()->getName() .' $' . $parameter->getName() . ',';
+        }
+        $arguments = rtrim($arguments, ',');
+        $functionDefinition = str_replace('%arguments%', $arguments, $functionDefinition);
         return $functionDefinition;
     }
 

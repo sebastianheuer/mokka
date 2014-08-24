@@ -1,6 +1,11 @@
 <?php
 namespace Mokka\Mock;
 
+use Mokka\Method\Method;
+use Mokka\Method\MockedMethod;
+use Mokka\Method\StubbedMethod;
+use Mokka\Mokka;
+
 trait Mock
 {
     /**
@@ -44,7 +49,7 @@ trait Mock
     /**
      * @param string $identifier
      * @param string $name
-     * @param \Mokka\Method $method
+     * @param \Mokka\Method\Method $method
      */
     private function _addMethod($identifier, $name, Method $method)
     {

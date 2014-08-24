@@ -1,6 +1,8 @@
 <?php
 namespace Mokka\Method;
 
+use Mokka\VerificationException;
+
 class MockedMethod implements Method
 {
     /**

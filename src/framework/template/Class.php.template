@@ -1,6 +1,6 @@
-class %className% extends %mockedClass% implements \Mokka\MockInterface
+class %className% extends %mockedClass% implements Mokka\Mock\MockInterface
 {
-    use \Mokka\Mock;
+    use \Mokka\Mock\Mock;
 
     %functions%
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Mokka\Mock;
 
+use Mokka\Mokka;
+
 interface MockInterface
 {
     public function listen();

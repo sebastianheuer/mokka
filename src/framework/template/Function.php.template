@@ -1,4 +1,4 @@
-public function %name%()
+public function %name%(%arguments%)
 {
     return $this->_call('%name%', func_get_args());
 }
