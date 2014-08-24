@@ -8,7 +8,7 @@ Simply add belanur/mokka to the ```composer.json``` of your project. Since there
 
 ```json
 {
-  require-dev: {
+  "require-dev": {
     "belanur/mokka": "dev-master"
   }
 }
