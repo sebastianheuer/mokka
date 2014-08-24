@@ -2,6 +2,18 @@
 
 The goal of Mokka is to provide a lightweight framework for creating mocks and stubs. It's syntax is heavily inspired by the [Mockito Framework](https://code.google.com/p/mockito/).
 
+##Installing with composer
+
+Simply add belanur/mokka to the ```composer.json``` of your project. Since there are no stable versions yet, you'll have to use "dev-master":
+
+```json
+{
+  "require-dev": {
+    "belanur/mokka": "dev-master"
+  }
+}
+```
+
 ##Prerequisites
 
 Mokka needs PHP 5.4.0+. PHP 5.5.0+ is recommended.
