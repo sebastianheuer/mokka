@@ -1,5 +1,5 @@
 <?php
-namespace Mokka;
+namespace Mokka\Method;
 
 interface Method 
 {
