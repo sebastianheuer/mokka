@@ -2,7 +2,7 @@
 namespace Mokka\Tests;
 
 use Mokka\Mokka;
-use Mokka\StubbedMethod;
+use Mokka\Method\StubbedMethod;
 
 class MokkaTest extends \PHPUnit_Framework_TestCase
 {

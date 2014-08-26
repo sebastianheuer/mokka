@@ -1,8 +1,8 @@
 <?php
 namespace Mokka\Tests;
 
-use Mokka\Mock;
-use Mokka\MockInterface;
+use Mokka\Mock\Mock;
+use Mokka\Mock\MockInterface;
 
 /**
  * Stub that uses the Mock trait

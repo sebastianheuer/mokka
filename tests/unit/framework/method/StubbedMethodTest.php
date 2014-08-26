@@ -1,7 +1,7 @@
 <?php
 namespace Mokka\Tests;
 
-use Mokka\StubbedMethod;
+use Mokka\Method\StubbedMethod;
 
 class StubbedMethodTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 namespace Mokka\Tests;
 
-use Mokka\MockedMethod;
+use Mokka\Method\MockedMethod;
 
 class MockedMethodTest extends \PHPUnit_Framework_TestCase
 {

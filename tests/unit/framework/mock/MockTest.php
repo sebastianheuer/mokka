@@ -1,9 +1,9 @@
 <?php
 namespace Mokka\Tests;
 
+use Mokka\Method\MockedMethod;
+use Mokka\Method\StubbedMethod;
 use Mokka\Mock;
-use Mokka\MockedMethod;
-use Mokka\StubbedMethod;
 
 class MockTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,6 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $owner = $this->getMockBuilder('\Mokka\Mokka')->disableOriginalConstructor()->getMock();
         $this->_mock->setOwner($owner);
         $this->assertAttributeEquals($owner, '_owner', $this->_mock);
-
     }
 
     public function testListenSetsProperties()

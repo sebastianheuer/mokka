@@ -40,6 +40,10 @@ class Mokka
         return sprintf('Mokka_Mocked_%s_%s', $originalClassname, (string)new Token());
     }
 
+    /**
+     * @param MockInterface $mock
+     * @return MockInterface
+     */
     public function when(MockInterface $mock)
     {
         $mock->listen(TRUE);
@@ -47,8 +51,8 @@ class Mokka
         return $mock;
     }
 
-    /*
-     *
+    /**
+     * @param mixed $return
      */
     public function thenReturn($return)
     {
