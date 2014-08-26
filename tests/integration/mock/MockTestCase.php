@@ -25,6 +25,16 @@ class MockTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @param \ReflectionMethod $method
      * @param string $parameterName
+     * @param mixed $value
+     */
+    public function assertParameterHasDefaultValue(\ReflectionMethod $method, $parameterName, $value)
+    {
+        $this->assertEquals($value, $this->_getParameter($method, $parameterName)->getDefaultValue());
+    }
+
+    /**
+     * @param \ReflectionMethod $method
+     * @param string $parameterName
      * @return \ReflectionParameter
      */
     private function _getParameter(\ReflectionMethod $method, $parameterName)
@@ -36,4 +46,6 @@ class MockTestCase extends \PHPUnit_Framework_TestCase
         }
         $this->fail(sprintf('Parameter %s in Method %s not found', $parameterName, $method->getName()));
     }
+
+
 } 

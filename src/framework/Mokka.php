@@ -87,17 +87,27 @@ class Mokka
         $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');
         $functionDefinition = str_replace('%name%', $method->getName(), $functionDefinition);
         $arguments = '';
-        // TODO this won't cut it
+        // TODO I guess this won't cut it
         if (substr($method->getName(), 0, 2) !== '__') {
             foreach ($method->getParameters() as $parameter) {
-                $prefix = '';
-                $suffix = '';
+
+                $type = '';
                 if ($parameter->getClass() !== NULL) {
-                    $prefix = $parameter->getClass()->getName();
+                    $type = $parameter->getClass()->getName();
                 } elseif ($parameter->isArray()) {
-                    $prefix = 'array';
+                    $type = 'array';
                 }
-                $arguments .= sprintf('%s %s %s ,', $prefix, '$' . $parameter->getName(), $suffix);
+
+                $default = '';
+                if ($parameter->isDefaultValueAvailable()) {
+                    if (NULL === $parameter->getDefaultValue()) {
+                        $default = '= NULL';
+                    } else {
+                        $default = sprintf("='%s'", $parameter->getDefaultValue());
+                    }
+                }
+
+                $arguments .= sprintf('%s %s %s ,', $type, '$' . $parameter->getName(), $default);
             }
             $arguments = rtrim($arguments, ',');
         }

@@ -23,7 +23,12 @@ class SampleClass
 
     }
 
-    public function getFoo()
+    public function setBar($bar = NULL)
+    {
+
+    }
+
+    public function setBaz($baz = 'baz')
     {
 
     }

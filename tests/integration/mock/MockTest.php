@@ -1,6 +1,7 @@
 <?php
 namespace Mokka\Tests\Integration;
 
+use Mokka\Mock\Mock;
 use Mokka\Mokka;
 use Mokka\Tests\Integration\Fixtures\Foo;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
@@ -12,21 +13,27 @@ class MockTest extends MockTestCase
      */
     private $_mokka;
 
+    /**
+     * @var Mock
+     */
+    private $_mock;
+
     public function setUp()
     {
         $this->_mokka = new Mokka();
+        $this->_mock = $this->_mokka->mock(SampleClass::class);
     }
 
     /**
+     * @testdox mocked magic methods (like __construct()) have no parameters
+     *
      * @dataProvider magicMethodProvider
      * @param string $method
      */
-    public function testMockedMagicMethodIsEmpty($method)
+    public function testMockedMagicMethodHasNoParameters($method)
     {
-        $mock = $this->_mokka->mock(SampleClass::class);
-        $mockedMethod = new \ReflectionMethod($mock, $method);
+        $mockedMethod = new \ReflectionMethod($this->_mock, $method);
         $this->assertEquals(0, $mockedMethod->getNumberOfParameters());
-        $this->assertNull($mock->$method());
     }
 
     public static function magicMethodProvider()
@@ -38,25 +45,35 @@ class MockTest extends MockTestCase
     }
 
     /**
-     * @testdox the mocked method contains the array parameter of the original method
+     * @testdox mocked method contains the array parameter of the original method
      */
     public function testMockedMethodHasArrayParam()
     {
-        $mock = $this->_mokka->mock(SampleClass::class);
-        $mockedMethod = new \ReflectionMethod($mock, 'setFoos');
+        $mockedMethod = new \ReflectionMethod($this->_mock, 'setFoos');
         $this->assertEquals(1, $mockedMethod->getNumberOfParameters());
         $this->assertParameterIsArray($mockedMethod, 'foos');
     }
 
     /**
-     * @testdox the mocked method contains the class parameter of the original method
+     * @testdox mocked method contains the parameter type of the original method
      */
     public function testMockedMethodHasClassParam()
     {
-        $mock = $this->_mokka->mock(SampleClass::class);
-        $mockedMethod = new \ReflectionMethod($mock, 'setFoo');
+        $mockedMethod = new \ReflectionMethod($this->_mock, 'setFoo');
         $this->assertEquals(1, $mockedMethod->getNumberOfParameters());
         $this->assertParameterHasType($mockedMethod, 'foo', Foo::class);
+    }
+
+    /**
+     * @testdox mocked method contains the optional parameter of the original method
+     */
+    public function testMockedMethodHasOptionalParameter()
+    {
+        $mockedMethod = new \ReflectionMethod($this->_mock, 'setBar');
+        $this->assertParameterHasDefaultValue($mockedMethod, 'bar', NULL);
+
+        $mockedMethod = new \ReflectionMethod($this->_mock, 'setBaz');
+        $this->assertParameterHasDefaultValue($mockedMethod, 'baz', 'baz');
     }
 
 } 
