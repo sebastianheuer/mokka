@@ -31,7 +31,7 @@ class Mokka
     }
 
     /**
-     * @param $originalClassname
+     * @param string $originalClassname
      * @return string
      */
     private function _getMockClassname($originalClassname)
@@ -87,10 +87,20 @@ class Mokka
         $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');
         $functionDefinition = str_replace('%name%', $method->getName(), $functionDefinition);
         $arguments = '';
-        foreach ($method->getParameters() as $parameter) {
-            $arguments .= $parameter->getClass()->getName() .' $' . $parameter->getName() . ',';
+        // TODO this won't cut it
+        if (substr($method->getName(), 0, 2) !== '__') {
+            foreach ($method->getParameters() as $parameter) {
+                $prefix = '';
+                $suffix = '';
+                if ($parameter->getClass() !== NULL) {
+                    $prefix = $parameter->getClass()->getName();
+                } elseif ($parameter->isArray()) {
+                    $prefix = 'array';
+                }
+                $arguments .= sprintf('%s %s %s ,', $prefix, '$' . $parameter->getName(), $suffix);
+            }
+            $arguments = rtrim($arguments, ',');
         }
-        $arguments = rtrim($arguments, ',');
         $functionDefinition = str_replace('%arguments%', $arguments, $functionDefinition);
         return $functionDefinition;
     }
