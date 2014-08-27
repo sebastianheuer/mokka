@@ -9,19 +9,13 @@ use Mokka\Tests\Integration\Fixtures\SampleClass;
 class MockTest extends MockTestCase
 {
     /**
-     * @var Mokka
-     */
-    private $_mokka;
-
-    /**
      * @var Mock
      */
     private $_mock;
 
     public function setUp()
     {
-        $this->_mokka = new Mokka();
-        $this->_mock = $this->_mokka->mock(SampleClass::class);
+        $this->_mock = Mokka::mock(SampleClass::class);
     }
 
     /**

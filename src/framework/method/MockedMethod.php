@@ -11,11 +11,23 @@ class MockedMethod implements Method
     private $_expectedArgs = array();
 
     /**
-     * @param array $expectedArgs
+     * @var bool indicates it this method must be called during execution (e.g. because of Mokka::verify())
      */
-    public function __construct(array $expectedArgs)
+    private $_mustBeCalled = FALSE;
+
+    /**
+     * @var bool indicates if this method has been called during execution (only relevant if $_mustBeCalled is TRUE)
+     */
+    private $_hasBeenCalled = FALSE;
+
+    /**
+     * @param array $expectedArgs
+     * @param bool $mustBeCalled
+     */
+    public function __construct(array $expectedArgs, $mustBeCalled = FALSE)
     {
         $this->_expectedArgs = $expectedArgs;
+        $this->_mustBeCalled = $mustBeCalled;
     }
 
     /**
@@ -25,6 +37,7 @@ class MockedMethod implements Method
      */
     public function call(array $actualArgs)
     {
+        $this->_hasBeenCalled = TRUE;
         foreach ($this->_expectedArgs as $index => $arg) {
             if (!isset($actualArgs[$index])) {
                 throw new VerificationException(
@@ -39,4 +52,14 @@ class MockedMethod implements Method
         }
         return NULL;
     }
-} 
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        if ($this->_mustBeCalled && !$this->_hasBeenCalled) {
+            throw new VerificationException(sprintf('Method should have been called, but wasn\'t'));
+        }
+    }
+}

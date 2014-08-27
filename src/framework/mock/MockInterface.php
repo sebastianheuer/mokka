@@ -1,22 +1,20 @@
 <?php
 namespace Mokka\Mock;
 
-use Mokka\Mokka;
-
 interface MockInterface
 {
     /**
      * @param mixed $returnValue
      */
-    public function addStub($returnValue);
+    public function thenReturn($returnValue);
 
     /**
      *
      */
-    public function listen();
+    public function listenForStub();
 
     /**
-     * @param Mokka $owner
+     * @return mixed
      */
-    public function setOwner(Mokka $owner);
+    public function listenForVerification();
 } 

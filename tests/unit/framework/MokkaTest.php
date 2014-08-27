@@ -2,7 +2,6 @@
 namespace Mokka\Tests;
 
 use Mokka\Mokka;
-use Mokka\Method\StubbedMethod;
 
 class MokkaTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,16 +17,18 @@ class MokkaTest extends \PHPUnit_Framework_TestCase
 
     public function testWhenLetsMockListen()
     {
-        $mock = new MockStub();
+        $mock = $this->getMock('\Mokka\Mock\MockInterface');
+        $mock->expects($this->once())
+            ->method('listenForStub');
         $this->_mokka->when($mock);
-        $this->assertAttributeEquals(TRUE, '_listening', $mock);
     }
 
     public function testVerifyLetsMockListen()
     {
-        $mock = new MockStub();
+        $mock = $this->getMock('\Mokka\Mock\MockInterface');
+        $mock->expects($this->once())
+            ->method('listenForVerification');
         $this->_mokka->verify($mock);
-        $this->assertAttributeEquals(TRUE, '_listening', $mock);
     }
 
     public function testWhenReturnsMock()
@@ -36,21 +37,4 @@ class MokkaTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($mock, $this->_mokka->when($mock));
     }
 
-    public function testThenReturnAddsStubToMock()
-    {
-        $mock = new MockStub();
-        $mock->setOwner($this->_mokka);
-        $this->_mokka->when($mock)->doFoo()->thenReturn('bar');
-        $expected = array(
-            md5('doFoo') => new StubbedMethod(array(), 'bar')
-        );
-        $this->assertAttributeEquals($expected, '_methods', $mock);
-    }
-
-    public function testMockReturnsExpectedMock()
-    {
-        $mock = $this->_mokka->mock('\Mokka\Tests\ClassStub');
-        $this->assertTrue(strpos(get_class($mock), 'Mokka_Mocked__') !== FALSE);
-        $this->assertNull($mock->getBar());
-    }
 }

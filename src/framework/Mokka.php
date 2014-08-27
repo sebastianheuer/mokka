@@ -7,26 +7,20 @@ use Mokka\Mock\MockInterface;
 class Mokka
 {
     /**
-     * @var Mock
-     */
-    private $_lastMock;
-
-    /**
      *
      * Mock an object
      * @param string $classname
-     * @return Mock
+     * @return \Mokka\Mock\MockInterface
      */
-    public function mock($classname)
+    public static function mock($classname)
     {
-        $mockClassname = $this->_getMockClassname($classname);
-        $classDefinition = $this->_getClass($mockClassname, $classname);
+        $mockClassname = self::_getMockClassname($classname);
+        $classDefinition = self::_getClass($mockClassname, $classname);
         /* TODO this is probably the most evil line of code I have ever written.
            Maybe there is a nicer way to dynamically create a class */
         eval($classDefinition);
         /** @var MockInterface $mock */
         $mock = new $mockClassname();
-        $mock->setOwner($this);
         return $mock;
     }
 
@@ -34,7 +28,7 @@ class Mokka
      * @param string $originalClassname
      * @return string
      */
-    private function _getMockClassname($originalClassname)
+    private static function _getMockClassname($originalClassname)
     {
         $originalClassname = str_replace('\\', '_', $originalClassname);
         return sprintf('Mokka_Mocked_%s_%s', $originalClassname, (string)new Token());
@@ -44,19 +38,10 @@ class Mokka
      * @param MockInterface $mock
      * @return MockInterface
      */
-    public function when(MockInterface $mock)
+    public static function when(MockInterface $mock)
     {
-        $mock->listen(TRUE);
-        $this->_lastMock = $mock;
+        $mock->listenForStub();
         return $mock;
-    }
-
-    /**
-     * @param mixed $return
-     */
-    public function thenReturn($return)
-    {
-        $this->_lastMock->addStub($return);
     }
 
     /**
@@ -64,7 +49,7 @@ class Mokka
      * @param string $classname
      * @return string
      */
-    private function _getClass($mockClassname, $classname)
+    private static function _getClass($mockClassname, $classname)
     {
         $classDefinition = file_get_contents(__DIR__ . '/template/Class.php.template');
         $classDefinition = str_replace('%className%', $mockClassname, $classDefinition);
@@ -76,7 +61,7 @@ class Mokka
             if ($method->getName() == 'echo' || $method->getName() == 'eval') {
                 continue;
             }
-            $functions[] = $this->_getFunction($method);
+            $functions[] = self::_getFunction($method);
         }
         $classDefinition = str_replace('%functions%', implode("\n", $functions), $classDefinition);
         return $classDefinition;
@@ -86,7 +71,7 @@ class Mokka
      * @param \ReflectionMethod $method
      * @return mixed|string
      */
-    private function _getFunction(\ReflectionMethod $method)
+    private static function _getFunction(\ReflectionMethod $method)
     {
         $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');
         $functionDefinition = str_replace('%name%', $method->getName(), $functionDefinition);
@@ -123,9 +108,9 @@ class Mokka
      * @param MockInterface $mock
      * @return MockInterface
      */
-    public function verify(MockInterface $mock)
+    public static function verify(MockInterface $mock)
     {
-        $mock->listen();
+        $mock->listenForVerification();
         return $mock;
     }
 
