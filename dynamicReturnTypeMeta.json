@@ -1,0 +1,14 @@
+{
+    "methodCalls": [
+        {
+            "class": "\\Mokka\\Mokka",
+            "method": "mock",
+            "position": 0
+        },
+        {
+            "class": "\\Mokka\\Mokka",
+            "method": "verify",
+            "position": 0
+        }
+    ]
+}
