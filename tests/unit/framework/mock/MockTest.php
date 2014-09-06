@@ -23,7 +23,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->doFoo();
         $this->_mock->thenReturn('someValue');
         $expected = array(
-            md5('doFoo' . serialize(array())) => new StubbedMethod(array(), 'someValue')
+            md5('doFoo' . json_encode(array())) => new StubbedMethod(array(), 'someValue')
         );
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
     }
@@ -33,7 +33,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->listenForStub(FALSE);
         $this->_mock->doFoo();
         $expected = array(
-            md5('doFoo' . serialize(array())) => new MockedMethod(array(), FALSE)
+            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), FALSE)
         );
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
     }

@@ -52,7 +52,7 @@ trait Mock
      */
     private function _getIdentifier($methodName, array $args)
     {
-        return md5($methodName . serialize($args));
+        return md5($methodName . json_encode($args));
     }
 
     /**
