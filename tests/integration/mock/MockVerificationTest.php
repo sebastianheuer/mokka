@@ -23,4 +23,11 @@ class MockVerificationTest extends MockTestCase
         $this->assertNull($mock->setBar());
     }
 
+    public function testVerifiesIfParamIsNull()
+    {
+        $mock = Mokka::mock(SampleClass::class);
+        Mokka::verify($mock)->setFoobar('foo', NULL);
+        $this->assertNull($mock->setFoobar('foo', NULL));
+    }
+
 } 

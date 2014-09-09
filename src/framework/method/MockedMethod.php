@@ -32,7 +32,7 @@ class MockedMethod implements Method
     {
         $this->_hasBeenCalled = TRUE;
         foreach ($this->_expectedArgs as $index => $arg) {
-            if (!isset($actualArgs[$index])) {
+            if (!array_key_exists($index, $actualArgs)) {
                 throw new VerificationException(
                     sprintf('Argument %s should be %s, is missing', $index, $arg)
                 );

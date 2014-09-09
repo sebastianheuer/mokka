@@ -32,4 +32,9 @@ class SampleClass
     {
 
     }
+
+    public function setFoobar($foo, $bar)
+    {
+
+    }
 } 
