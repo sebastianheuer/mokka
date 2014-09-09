@@ -96,11 +96,10 @@ trait Mock
 
         if ($this->_listeningForVerification || $this->_listeningForStub) {
             $this->_lastArgs = $args;
-
-            // TODO there should be a separate class for this kind of method
-            $methodMustBeCalled = $this->_listeningForVerification;
-            $method = new MockedMethod($args, $methodMustBeCalled);
-            $this->_addMethod($identifier, $originalMethod, $method);
+            if ($this->_listeningForVerification) {
+                $method = new MockedMethod($args);
+                $this->_addMethod($identifier, $originalMethod, $method);
+            }
             return $this;
         }
 

@@ -51,10 +51,15 @@ class Mokka
      */
     private static function _getClass($mockClassname, $classname)
     {
-        $classDefinition = file_get_contents(__DIR__ . '/template/Class.php.template');
+        $reflection = new \ReflectionClass($classname);
+        if ($reflection->isInterface()) {
+            $classDefinition = file_get_contents(__DIR__ . '/template/Interface.php.template');
+        } else {
+            $classDefinition = file_get_contents(__DIR__ . '/template/Class.php.template');
+        }
         $classDefinition = str_replace('%className%', $mockClassname, $classDefinition);
         $classDefinition = str_replace('%mockedClass%', $classname, $classDefinition);
-        $reflection = new \ReflectionClass($classname);
+
         $functions = array();
         foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
             // TODO eval can't handle methods with the names echo and eval

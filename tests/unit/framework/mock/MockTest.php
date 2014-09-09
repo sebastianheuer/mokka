@@ -33,7 +33,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->listenForVerification();
         $this->_mock->doFoo();
         $expected = array(
-            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), TRUE)
+            md5('doFoo' . json_encode(array())) => new MockedMethod(array())
         );
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
         $this->_mock->doFoo();

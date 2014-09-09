@@ -9,9 +9,11 @@ spl_autoload_register(
             $classes = array(
                 'mokka\\tests\\classstub' => '/unit/framework/ClassStub.php',
                 'mokka\\tests\\integration\\fixtures\\foo' => '/integration/mock/fixtures/Foo.php',
+                'mokka\\tests\\integration\\fixtures\\foointerface' => '/integration/mock/fixtures/FooInterface.php',
                 'mokka\\tests\\integration\\fixtures\\sampleclass' => '/integration/mock/fixtures/SampleClass.php',
                 'mokka\\tests\\integration\\mocktest' => '/integration/mock/MockTest.php',
                 'mokka\\tests\\integration\\mocktestcase' => '/integration/mock/MockTestCase.php',
+                'mokka\\tests\\integration\\mockverificationtest' => '/integration/mock/MockVerificationTest.php',
                 'mokka\\tests\\mockedmethodtest' => '/unit/framework/method/MockedMethodTest.php',
                 'mokka\\tests\\mockstub' => '/unit/framework/mock/MockStub.php',
                 'mokka\\tests\\mocktest' => '/unit/framework/mock/MockTest.php',

@@ -24,4 +24,10 @@ class StubbedMethod extends MockedMethod
         parent::call($actualArgs);
         return $this->_returnValue;
     }
+
+    public function __destruct()
+    {
+
+    }
+
 } 

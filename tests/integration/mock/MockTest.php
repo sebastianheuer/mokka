@@ -4,6 +4,7 @@ namespace Mokka\Tests\Integration;
 use Mokka\Mock\Mock;
 use Mokka\Mokka;
 use Mokka\Tests\Integration\Fixtures\Foo;
+use Mokka\Tests\Integration\Fixtures\FooInterface;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
 
 class MockTest extends MockTestCase
@@ -68,6 +69,12 @@ class MockTest extends MockTestCase
 
         $mockedMethod = new \ReflectionMethod($this->_mock, 'setBaz');
         $this->assertParameterHasDefaultValue($mockedMethod, 'baz', 'baz');
+    }
+
+    public function testMocksInterface()
+    {
+        $mock = Mokka::mock(FooInterface::class);
+        $this->assertNull($mock->getFoo());
     }
 
 } 

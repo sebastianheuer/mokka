@@ -1,0 +1,6 @@
+class %className% implements Mokka\Mock\MockInterface, %mockedClass%
+{
+    use \Mokka\Mock\Mock;
+
+    %functions%
+}
