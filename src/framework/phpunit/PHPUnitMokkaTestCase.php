@@ -30,6 +30,10 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
      */
     public function verify(MockInterface $mock)
     {
+        /* Workaround for PHPUnit Warning "This test did not perform any assertions".
+         * A verification on a mock object is some kind of assertion
+         */
+        $this->assertTrue(TRUE);
         return Mokka::verify($mock);
     }
 } 
