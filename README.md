@@ -35,8 +35,8 @@ $mokka = new Mokka\Mokka();
 ```php
 <?php 
 // Now you can create a mock of any class or interface
-$foo = $mokka->mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
-$foo = $mokka->mock('\Acme\Foo');      // use this in PHP 5.4
+$foo = Mokka::mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
+$foo = Mokka::mock('\Acme\Foo');      // use this in PHP 5.4
 
 // By default, all methods of the mocked class return NULL
 $foo->getBar(); // => NULL
