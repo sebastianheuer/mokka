@@ -1,6 +1,9 @@
 <?php
 namespace Mokka;
 
+use Mokka\Method\Invokation\Exactly;
+use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\Once;
 use Mokka\Mock\Mock;
 use Mokka\Mock\MockInterface;
 
@@ -111,10 +114,11 @@ class Mokka
 
     /**
      * @param MockInterface $mock
-     * @param int $expectedInvokationCount
+     * @param ExpectedInvokationCount|NULL|int $expectedInvokationCount
+     * @throws \InvalidArgumentException
      * @return MockInterface
      */
-    public static function verify(MockInterface $mock, $expectedInvokationCount = 1)
+    public static function verify(MockInterface $mock, $expectedInvokationCount = NULL)
     {
         $mock->listenForVerification($expectedInvokationCount);
         return $mock;

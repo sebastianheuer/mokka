@@ -1,6 +1,8 @@
 <?php
 namespace Mokka\Tests\Integration;
 
+use Mokka\Method\Invokation\Exactly;
+use Mokka\Method\Invokation\Never;
 use Mokka\Mock\Mock;
 use Mokka\Mokka;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
@@ -32,12 +34,12 @@ class MockVerificationTest extends MockTestCase
 
     /**
      * @expectedException \Mokka\VerificationException
-     * @expectedExceptionMessage Method was expected to be called 3 times, but was called 2 times
+     * @expectedExceptionMessage Method should have been called exactly 3 times, but was called 2 times
      */
     public function testThrowsExceptionIfExpectedInvokationCountIsNotMet()
     {
         $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock, 3)->setBar();
+        Mokka::verify($mock, new Exactly(3))->setBar();
         $mock->setBar();
         $mock->setBar();
     }
@@ -48,7 +50,7 @@ class MockVerificationTest extends MockTestCase
     public function testVerifiesThatMethodWasNotCalled()
     {
         $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock, Mokka::never())->setBar();
+        Mokka::verify($mock, new Never())->setBar();
         $mock->setBar();
     }
 

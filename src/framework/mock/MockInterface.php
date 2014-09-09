@@ -16,5 +16,5 @@ interface MockInterface
     /**
      *
      */
-    public function listenForVerification();
+    public function listenForVerification($expectedInvokationCount);
 } 

@@ -1,6 +1,9 @@
 <?php
 namespace Mokka\Mock;
 
+use Mokka\Method\Invokation\Exactly;
+use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\Once;
 use Mokka\Method\Method;
 use Mokka\Method\MockedMethod;
 use Mokka\Method\StubbedMethod;
@@ -54,6 +57,10 @@ trait Mock
         $this->_listeningForVerification = FALSE;
     }
 
+    /**
+     * @param string $identifier
+     * @param Method $method
+     */
     private function _addStubbedMethod($identifier, Method $method)
     {
         $this->_stubs[$identifier] = $method;
@@ -93,10 +100,20 @@ trait Mock
     }
 
     /**
-     * @param int $expectedInvokationCount
+     * @param int|NULL|ExpectedInvokationCount $expectedInvokationCount
+     * @throws \InvalidArgumentException
      */
-    public function listenForVerification($expectedInvokationCount = 1)
+    public function listenForVerification($expectedInvokationCount = NULL)
     {
+        if (NULL === $expectedInvokationCount) {
+            $expectedInvokationCount = new Once();
+        } elseif (is_int($expectedInvokationCount)) {
+            $expectedInvokationCount = new Exactly($expectedInvokationCount);
+        } elseif (!$expectedInvokationCount instanceof ExpectedInvokationCount) {
+            throw new \InvalidArgumentException(
+                'expected invokation count must be either NULL, an integer or implement ExpectedInvocationCount interface'
+            );
+        }
         $this->_listeningForVerification = TRUE;
         $this->_expectedInvokationCount = $expectedInvokationCount;
     }

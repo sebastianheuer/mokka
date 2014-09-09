@@ -7,12 +7,19 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'mokka\\method' => '/method/Method.php',
-                'mokka\\mock' => '/mock/Mock.php',
-                'mokka\\mockedmethod' => '/method/MockedMethod.php',
-                'mokka\\mockinterface' => '/mock/MockInterface.php',
+                'mokka\\method\\invokation\\any' => '/method/invokation/Any.php',
+                'mokka\\method\\invokation\\atleast' => '/method/invokation/AtLeast.php',
+                'mokka\\method\\invokation\\exactly' => '/method/invokation/Exactly.php',
+                'mokka\\method\\invokation\\expectedinvokationcount' => '/method/invokation/ExpectedInvokationCount.php',
+                'mokka\\method\\invokation\\never' => '/method/invokation/Never.php',
+                'mokka\\method\\invokation\\once' => '/method/invokation/Once.php',
+                'mokka\\method\\method' => '/method/Method.php',
+                'mokka\\method\\mockedmethod' => '/method/MockedMethod.php',
+                'mokka\\method\\stubbedmethod' => '/method/StubbedMethod.php',
+                'mokka\\mock\\mock' => '/mock/Mock.php',
+                'mokka\\mock\\mockinterface' => '/mock/MockInterface.php',
                 'mokka\\mokka' => '/Mokka.php',
-                'mokka\\stubbedmethod' => '/method/StubbedMethod.php',
+                'mokka\\phpunit\\mokkatestcase' => '/phpunit/PHPUnitMokkaTestCase.php',
                 'mokka\\token' => '/Token.php',
                 'mokka\\verificationexception' => '/VerificationException.php'
             );

@@ -1,6 +1,7 @@
 <?php
 namespace Mokka\Tests;
 
+use Mokka\Method\Invokation\Any;
 use Mokka\Method\MockedMethod;
 
 class MockedMethodTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +11,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentIsMissing()
     {
-        $method = new MockedMethod(array('foo'));
+        $method = new MockedMethod(array('foo'), new Any());
         $method->call(array());
     }
 
@@ -19,7 +20,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentDoesNotMatchExpectedValue()
     {
-        $method = new MockedMethod(array('foo'));
+        $method = new MockedMethod(array('foo'), new Any());
         $method->call(array('bar'));
     }
 
@@ -28,7 +29,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallReturnsNullIfArgumentsMatch()
     {
-        $method = new MockedMethod(array('foo'));
+        $method = new MockedMethod(array('foo'), new Any());
         $this->assertNull($method->call(array('foo')));
     }
 

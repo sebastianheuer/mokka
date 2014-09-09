@@ -1,6 +1,7 @@
 <?php
 namespace Mokka\Method;
 
+use Mokka\Method\Invokation\ExpectedInvokationCount;
 use Mokka\VerificationException;
 
 class MockedMethod implements Method
@@ -16,15 +17,15 @@ class MockedMethod implements Method
     private $_invokationCounter = 0;
 
     /**
-     * @var int number of times this method should be called during execution
+     * @var ExpectedInvokationCount number of times this method should be called during execution
      */
-    private $_expectedInvokationCount = 1;
+    private $_expectedInvokationCount;
 
     /**
      * @param array $expectedArgs
-     * @param int $expectedInvokationCount
+     * @param Invokation\ExpectedInvokationCount $expectedInvokationCount
      */
-    public function __construct(array $expectedArgs, $expectedInvokationCount = 1)
+    public function __construct(array $expectedArgs, ExpectedInvokationCount $expectedInvokationCount)
     {
         $this->_expectedArgs = $expectedArgs;
         $this->_expectedInvokationCount = $expectedInvokationCount;
@@ -58,27 +59,9 @@ class MockedMethod implements Method
      */
     public function __destruct()
     {
-        if ($this->_invokationCounter != $this->_expectedInvokationCount) {
-            throw new VerificationException($this->_getInvokationErrorMessage());
+        if (!$this->_expectedInvokationCount->isValidInvokationCount($this->_invokationCounter)) {
+            throw new VerificationException($this->_expectedInvokationCount->getErrorMessage($this->_invokationCounter));
         }
     }
 
-    /**
-     * @return string
-     */
-    private function _getInvokationErrorMessage()
-    {
-        switch ($this->_expectedInvokationCount) {
-            case 0:
-                return sprintf('Method should NOT have been called, but was called %d times', $this->_invokationCounter);
-            case 1:
-                return sprintf('Method was expected to be called once, but was called %d times', $this->_invokationCounter);
-            default:
-                return sprintf(
-                    'Method was expected to be called %d times, but was called %d times',
-                    $this->_expectedInvokationCount,
-                    $this->_invokationCounter
-                );
-        }
-    }
 }

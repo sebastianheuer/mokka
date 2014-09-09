@@ -1,17 +1,19 @@
 <?php
 namespace Mokka\Method;
 
+use Mokka\Method\Invokation\Any;
+
 class StubbedMethod extends MockedMethod
 {
     private $_returnValue;
 
     /**
      * @param array $expectedArgs
-     * @param $returnValue
+     * @param string $returnValue
      */
     public function __construct(array $expectedArgs, $returnValue)
     {
-        parent::__construct($expectedArgs);
+        parent::__construct($expectedArgs, new Any());
         $this->_returnValue = $returnValue;
     }
 

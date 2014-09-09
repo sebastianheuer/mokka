@@ -1,6 +1,7 @@
 <?php
 namespace Mokka\Tests;
 
+use Mokka\Method\Invokation\Once;
 use Mokka\Method\MockedMethod;
 use Mokka\Method\StubbedMethod;
 use Mokka\Mock;
@@ -34,7 +35,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->listenForVerification();
         $this->_mock->doFoo();
         $expected = array(
-            md5('doFoo' . json_encode(array())) => new MockedMethod(array())
+            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), new Once())
         );
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
         $this->_mock->doFoo();
