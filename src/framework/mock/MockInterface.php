@@ -14,7 +14,7 @@ interface MockInterface
     public function listenForStub();
 
     /**
-     * @return mixed
+     *
      */
     public function listenForVerification();
 } 

@@ -16,4 +16,11 @@ class MockVerificationTest extends MockTestCase
         Mokka::verify($mock)->setBar();
     }
 
+    public function testDoesNotThrowExeptionIfVerifiedMethodWasCalled()
+    {
+        $mock = Mokka::mock(SampleClass::class);
+        Mokka::verify($mock)->setBar();
+        $this->assertNull($mock->setBar());
+    }
+
 } 

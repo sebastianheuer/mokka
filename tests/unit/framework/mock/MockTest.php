@@ -19,7 +19,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsExpectedStub()
     {
-        $this->_mock->listenForStub(TRUE);
+        $this->_mock->listenForStub();
         $this->_mock->doFoo();
         $this->_mock->thenReturn('someValue');
         $expected = array(
@@ -30,12 +30,22 @@ class MockTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsExpectedMethod()
     {
-        $this->_mock->listenForStub(FALSE);
+        $this->_mock->listenForVerification();
         $this->_mock->doFoo();
         $expected = array(
-            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), FALSE)
+            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), TRUE)
         );
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
+        $this->_mock->doFoo();
+    }
+
+    /**
+     * @expectedException \Mokka\VerificationException
+     */
+    public function testThrowsExceptionIfVerifiedMethodWasNotCalled()
+    {
+        $this->_mock->listenForVerification();
+        $this->_mock->doFoo();
     }
 
 } 

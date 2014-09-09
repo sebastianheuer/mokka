@@ -4,7 +4,6 @@ namespace Mokka\Mock;
 use Mokka\Method\Method;
 use Mokka\Method\MockedMethod;
 use Mokka\Method\StubbedMethod;
-use Mokka\Mokka;
 
 trait Mock
 {
@@ -99,10 +98,7 @@ trait Mock
             $this->_lastArgs = $args;
 
             // TODO there should be a separate class for this kind of method
-            $methodMustBeCalled = FALSE;
-            if ($this->_listeningForVerification) {
-                $methodMustBeCalled = TRUE;
-            }
+            $methodMustBeCalled = $this->_listeningForVerification;
             $method = new MockedMethod($args, $methodMustBeCalled);
             $this->_addMethod($identifier, $originalMethod, $method);
             return $this;
