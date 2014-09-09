@@ -23,4 +23,13 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
     {
         return Mokka::when($mock);
     }
+
+    /**
+     * @param MockInterface $mock
+     * @return MockInterface
+     */
+    public function verify(MockInterface $mock)
+    {
+        return Mokka::verify($mock);
+    }
 } 

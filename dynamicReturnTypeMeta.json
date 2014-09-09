@@ -9,6 +9,26 @@
             "class": "\\Mokka\\Mokka",
             "method": "verify",
             "position": 0
-        }
+        },
+        {
+            "class": "\\Mokka\\Mokka",
+            "method": "when",
+            "position": 0
+        },
+        {
+            "class": "\\Mokka\\PHPUnit\\MokkaTestCase",
+            "method": "mock",
+            "position": 0
+        },
+        {
+            "class": "\\Mokka\\PHPUnit\\MokkaTestCase",
+            "method": "verify",
+            "position": 0
+        },
+        {
+            "class": "\\Mokka\\PHPUnit\\MokkaTestCase",
+            "method": "when",
+            "position": 0
+        }        
     ]
 }
