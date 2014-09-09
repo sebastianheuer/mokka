@@ -1,6 +1,7 @@
 <?php
 namespace Mokka\PHPUnit;
 
+use Mokka\Method\Invokation\ExpectedInvokationCount;
 use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
 
@@ -26,14 +27,15 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param MockInterface $mock
+     * @param null|int|ExpectedInvokationCount $expectedInvokationCount
      * @return MockInterface
      */
-    public function verify(MockInterface $mock)
+    public function verify(MockInterface $mock, $expectedInvokationCount = NULL)
     {
         /* Workaround for PHPUnit Warning "This test did not perform any assertions".
          * A verification on a mock object is some kind of assertion
          */
         $this->assertTrue(TRUE);
-        return Mokka::verify($mock);
+        return Mokka::verify($mock, $expectedInvokationCount);
     }
 } 
