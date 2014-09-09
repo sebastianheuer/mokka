@@ -1,8 +1,10 @@
 <?php
 namespace Mokka;
 
+use Mokka\Method\Invokation\AtLeast;
 use Mokka\Method\Invokation\Exactly;
 use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\Never;
 use Mokka\Method\Invokation\Once;
 use Mokka\Mock\Mock;
 use Mokka\Mock\MockInterface;
@@ -125,11 +127,37 @@ class Mokka
     }
 
     /**
-     *
+     * @return Never
      */
     public static function never()
     {
-        return 0;
+        return new Never();
+    }
+
+    /**
+     * @return Once
+     */
+    public static function once()
+    {
+        return new Once();
+    }
+
+    /**
+     * @param int $count
+     * @return AtLeast
+     */
+    public static function atLeast($count)
+    {
+        return new AtLeast($count);
+    }
+
+    /**
+     * @param int $count
+     * @return Exactly
+     */
+    public static function exactly($count)
+    {
+        return new Exactly($count);
     }
 
 } 
