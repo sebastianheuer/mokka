@@ -46,7 +46,7 @@ $foo = Mokka::mock('\Acme\Foo');
 $foo->getBar(); // => NULL
 
 ```
-You can stub methods with `when()` and `thenReturn()`
+You can stub methods with `when()` and `thenReturn()`:
 ```php
 <?php
 Mokka::when($mock)->getBar('baz')->thenReturn('foobar');
@@ -57,7 +57,7 @@ $foo->getBar('foo'); // => NULL
 $foo->getBar('baz'); // => 'foobar'
 ```
 
-You can verify if and how often a method was called with `verify()`.
+You can verify if and how often a method was called with `verify()`:
 ```php
 <?php
 // The mock will throw a VerificationException if this method was not called once
