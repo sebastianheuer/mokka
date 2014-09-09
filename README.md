@@ -34,24 +34,28 @@ $mokka = new Mokka\Mokka();
 
 ```php
 <?php 
-// include the Phar package and create a new Mokka instance
-require __DIR__ . '/mokka.phar';
-$mokka = new Mokka\Mokka();
-
-// now you can create a mock of any class
+// Now you can create a mock of any class or interface
 $foo = $mokka->mock(\Acme\Foo::class); // the class constant is available since PHP 5.5
 $foo = $mokka->mock('\Acme\Foo');      // use this in PHP 5.4
 
-// by default, all methods of the mocked class return NULL
-var_dump($foo->getBar()); // => NULL
+// By default, all methods of the mocked class return NULL
+$foo->getBar(); // => NULL
 
-// you can stub methods with when() and thenReturn()
-$mokka->when($mock)->getBar('baz')->thenReturn('foobar');
+// You can stub methods with when() and thenReturn()
+Mokka::when($mock)->getBar('baz')->thenReturn('foobar');
 
-// this will still return NULL, because the stub is set for the argument 'baz' only
-var_dump($foo->getBar('foo')); // => NULL
+// This will still return NULL, because the stub is set for the argument 'baz' only
+$foo->getBar('foo'); // => NULL
 
-echo $foo->getBar('baz'); // => foobar
+$foo->getBar('baz'); // => 'foobar'
+
+// You can make sure that a method gets called with verify(). 
+Mokka::verify($foo)->getBar(); // The mock will throw a VerificationException if this method was not called once
+// You can also verify that a method gets called a specific number of times
+Mokka::verify($foo, 3)->getBar(); // The mock will throw a VerificationException if this method was not called three times
+// This also works with 0 or Mokka::never()
+Mokka::verify($foo, Mokka::never())->getBar(); // The mock will throw a VerificationException if this method was called
+
 ```
 
 ## Using Mokka in PHPUnit 
