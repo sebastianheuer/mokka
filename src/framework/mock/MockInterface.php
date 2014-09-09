@@ -1,6 +1,8 @@
 <?php
 namespace Mokka\Mock;
 
+use Mokka\Method\Invokation\ExpectedInvokationCount;
+
 interface MockInterface
 {
     /**
@@ -14,7 +16,7 @@ interface MockInterface
     public function listenForStub();
 
     /**
-     *
+     * @param int|NULL|ExpectedInvokationCount $expectedInvokationCount
      */
     public function listenForVerification($expectedInvokationCount);
 } 

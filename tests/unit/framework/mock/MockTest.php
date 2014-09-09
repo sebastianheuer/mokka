@@ -31,6 +31,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsExpectedMethod()
     {
+        // TODO find out what's wrong here.
         $this->markTestSkipped('Fails for unknown reasons that are yet to be discovered');
         $this->_mock->listenForVerification();
         $this->_mock->doFoo();
