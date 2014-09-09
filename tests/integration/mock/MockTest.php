@@ -10,7 +10,7 @@ use Mokka\Tests\Integration\Fixtures\SampleClass;
 class MockTest extends MockTestCase
 {
     /**
-     * @var Mock
+     * @var SampleClass
      */
     private $_mock;
 
@@ -75,6 +75,23 @@ class MockTest extends MockTestCase
     {
         $mock = Mokka::mock(FooInterface::class);
         $this->assertNull($mock->getFoo());
+    }
+
+    public function testAllowsCombinationOfMockAndStub()
+    {
+        Mokka::verify($this->_mock)->setBar();
+        Mokka::when($this->_mock)->setBar()->thenReturn(TRUE);
+        $this->assertTrue($this->_mock->setBar());
+    }
+
+    /**
+     * @expectedException \Mokka\VerificationException
+     */
+    public function testThrowsExceptionIfCombinedMockAndStubWasNotCalled()
+    {
+        Mokka::verify($this->_mock)->setBar();
+        Mokka::when($this->_mock)->setBar()->thenReturn(TRUE);
+        unset($this->_mock);
     }
 
 } 

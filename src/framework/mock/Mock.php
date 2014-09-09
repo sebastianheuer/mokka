@@ -13,6 +13,11 @@ trait Mock
     private $_methods = array();
 
     /**
+     * @var StubbedMethod[]
+     */
+    private $_stubs = array();
+
+    /**
      * @var bool
      */
     private $_listeningForVerification = FALSE;
@@ -23,9 +28,9 @@ trait Mock
     private $_listeningForStub = FALSE;
 
     /**
-     * @var string
+     * @var string|NULL
      */
-    private $_lastMethod = '';
+    private $_lastMethod;
 
     /**
      * @var array
@@ -35,13 +40,20 @@ trait Mock
     /**
      * @param string $identifier
      * @param string $name
-     * @param \Mokka\Method\Method $method
+     * @param Method $method
      */
-    private function _addMethod($identifier, $name, Method $method)
+    private function _addMockedMethod($identifier, $name, Method $method)
     {
         $this->_methods[$identifier] = $method;
-        $this->_listeningForVerification = FALSE;
         $this->_lastMethod = $name;
+        $this->_listeningForVerification = FALSE;
+    }
+
+    private function _addStubbedMethod($identifier, Method $method)
+    {
+        $this->_stubs[$identifier] = $method;
+        $this->_lastMethod = NULL;
+        $this->_listeningForStub = FALSE;
     }
 
     /**
@@ -64,8 +76,7 @@ trait Mock
             throw new \BadMethodCallException('Mock is not listening for a stubbed return value.');
         }
         $identifier = $this->_getIdentifier($this->_lastMethod, $this->_lastArgs);
-        $this->_addMethod($identifier, $this->_lastMethod, new StubbedMethod($this->_lastArgs, $returnValue));
-        $this->_listeningForStub = FALSE;
+        $this->_addStubbedMethod($identifier, new StubbedMethod($this->_lastArgs, $returnValue));
     }
 
     /**
@@ -97,14 +108,16 @@ trait Mock
         if ($this->_listeningForVerification || $this->_listeningForStub) {
             $this->_lastArgs = $args;
             if ($this->_listeningForVerification) {
-                $method = new MockedMethod($args);
-                $this->_addMethod($identifier, $originalMethod, $method);
+                $this->_addMockedMethod($identifier, $originalMethod, new MockedMethod($args));
             }
             return $this;
         }
 
         if (isset($this->_methods[$identifier])) {
-            return $this->_methods[$identifier]->call($args);
+            $this->_methods[$identifier]->call($args);
+        }
+        if (isset($this->_stubs[$identifier])) {
+            return $this->_stubs[$identifier]->call($args);
         }
 
         return NULL;
