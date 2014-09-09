@@ -34,6 +34,12 @@ namespace Mokka\Tests;
 
 use Mokka\Method\StubbedMethod;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class StubbedMethodTest extends \PHPUnit_Framework_TestCase
 {
     /**

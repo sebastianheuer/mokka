@@ -35,6 +35,12 @@ namespace Mokka\Tests;
 use Mokka\Method\Invokation\Any;
 use Mokka\Method\MockedMethod;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class MockedMethodTest extends \PHPUnit_Framework_TestCase
 {
     /**

@@ -32,6 +32,12 @@
  */
 namespace Mokka\Method\Invokation;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class Any implements ExpectedInvokationCount
 {
     /**

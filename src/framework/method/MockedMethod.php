@@ -35,6 +35,12 @@ namespace Mokka\Method;
 use Mokka\Method\Invokation\ExpectedInvokationCount;
 use Mokka\VerificationException;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class MockedMethod implements Method
 {
     /**

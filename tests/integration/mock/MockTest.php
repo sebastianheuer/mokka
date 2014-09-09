@@ -38,6 +38,12 @@ use Mokka\Tests\Integration\Fixtures\Foo;
 use Mokka\Tests\Integration\Fixtures\FooInterface;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class MockTest extends MockTestCase
 {
     /**

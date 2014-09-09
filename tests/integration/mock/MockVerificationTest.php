@@ -38,6 +38,12 @@ use Mokka\Mock\Mock;
 use Mokka\Mokka;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class MockVerificationTest extends MockTestCase
 {
     /**

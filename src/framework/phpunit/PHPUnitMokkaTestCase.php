@@ -36,6 +36,12 @@ use Mokka\Method\Invokation\ExpectedInvokationCount;
 use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
 
+/**
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
+ */
 class MokkaTestCase extends \PHPUnit_Framework_TestCase
 {
     /**

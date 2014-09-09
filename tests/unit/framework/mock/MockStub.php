@@ -39,6 +39,11 @@ use Mokka\Mock\MockInterface;
  * Stub that uses the Mock trait
  * Behaves like the dynamically created mock classes
  * Used for testing Mock
+ *
+ * @author     Sebastian Heuer <belanur@gmail.com>
+ * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @license    BSD License
+ * @link       https://github.com/belanur/mokka
  */
 class MockStub implements MockInterface
 {
