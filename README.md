@@ -84,4 +84,4 @@ class FooTest extends MokkaTestCase
 
 ## Code Completion in IntelliJ / PHPStorm
 
-The [DynamicReturnTypeValue Plugin](http://plugins.jetbrains.com/plugin/7251) provides improved code completion support for methods like Mokka::mock() or Mokka::verify(). A dynamicReturnTypeMeta.json file is included in Mokka.
+The [DynamicReturnTypeValue Plugin](http://plugins.jetbrains.com/plugin/7251) provides improved code completion support for methods like `Mokka::mock()` or `Mokka::verify()`. A dynamicReturnTypeMeta.json file is included in Mokka.
