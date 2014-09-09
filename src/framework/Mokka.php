@@ -111,12 +111,21 @@ class Mokka
 
     /**
      * @param MockInterface $mock
+     * @param int $expectedInvokationCount
      * @return MockInterface
      */
-    public static function verify(MockInterface $mock)
+    public static function verify(MockInterface $mock, $expectedInvokationCount = 1)
     {
-        $mock->listenForVerification();
+        $mock->listenForVerification($expectedInvokationCount);
         return $mock;
+    }
+
+    /**
+     *
+     */
+    public static function never()
+    {
+        return 0;
     }
 
 } 

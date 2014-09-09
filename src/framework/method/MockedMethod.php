@@ -13,14 +13,21 @@ class MockedMethod implements Method
     /**
      * @var bool indicates if this method has been called during execution (only relevant if $_mustBeCalled is TRUE)
      */
-    private $_hasBeenCalled = FALSE;
+    private $_invokationCounter = 0;
+
+    /**
+     * @var int number of times this method should be called during execution
+     */
+    private $_expectedInvokationCount = 1;
 
     /**
      * @param array $expectedArgs
+     * @param int $expectedInvokationCount
      */
-    public function __construct(array $expectedArgs)
+    public function __construct(array $expectedArgs, $expectedInvokationCount = 1)
     {
         $this->_expectedArgs = $expectedArgs;
+        $this->_expectedInvokationCount = $expectedInvokationCount;
     }
 
     /**
@@ -30,7 +37,7 @@ class MockedMethod implements Method
      */
     public function call(array $actualArgs)
     {
-        $this->_hasBeenCalled = TRUE;
+        $this->_invokationCounter++;
         foreach ($this->_expectedArgs as $index => $arg) {
             if (!array_key_exists($index, $actualArgs)) {
                 throw new VerificationException(
@@ -51,8 +58,27 @@ class MockedMethod implements Method
      */
     public function __destruct()
     {
-        if (!$this->_hasBeenCalled) {
-            throw new VerificationException(sprintf('Method should have been called, but wasn\'t'));
+        if ($this->_invokationCounter != $this->_expectedInvokationCount) {
+            throw new VerificationException($this->_getInvokationErrorMessage());
+        }
+    }
+
+    /**
+     * @return string
+     */
+    private function _getInvokationErrorMessage()
+    {
+        switch ($this->_expectedInvokationCount) {
+            case 0:
+                return sprintf('Method should NOT have been called, but was called %d times', $this->_invokationCounter);
+            case 1:
+                return sprintf('Method was expected to be called once, but was called %d times', $this->_invokationCounter);
+            default:
+                return sprintf(
+                    'Method was expected to be called %d times, but was called %d times',
+                    $this->_expectedInvokationCount,
+                    $this->_invokationCounter
+                );
         }
     }
 }

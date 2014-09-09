@@ -23,6 +23,11 @@ trait Mock
     private $_listeningForVerification = FALSE;
 
     /**
+     * @var int
+     */
+    private $_expectedInvokationCount = 1;
+
+    /**
      * @var bool
      */
     private $_listeningForStub = FALSE;
@@ -88,11 +93,12 @@ trait Mock
     }
 
     /**
-     *
+     * @param int $expectedInvokationCount
      */
-    public function listenForVerification()
+    public function listenForVerification($expectedInvokationCount = 1)
     {
         $this->_listeningForVerification = TRUE;
+        $this->_expectedInvokationCount = $expectedInvokationCount;
     }
 
     /**
@@ -108,7 +114,9 @@ trait Mock
         if ($this->_listeningForVerification || $this->_listeningForStub) {
             $this->_lastArgs = $args;
             if ($this->_listeningForVerification) {
-                $this->_addMockedMethod($identifier, $originalMethod, new MockedMethod($args));
+                $this->_addMockedMethod(
+                    $identifier, $originalMethod, new MockedMethod($args, $this->_expectedInvokationCount)
+                );
             }
             return $this;
         }
