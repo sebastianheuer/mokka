@@ -62,10 +62,13 @@ You can verify if and how often a method was called with `verify()`.
 <?php
 // The mock will throw a VerificationException if this method was not called once
 Mokka::verify($foo)->getBar();
+
 // The mock will throw a VerificationException if this method was not called three times
-Mokka::verify($foo, 3)->getBar(); //
+Mokka::verify($foo, 3)->getBar();
+
 // The mock will throw a VerificationException if this method was called
 Mokka::verify($foo, Mokka::never())->getBar();
+
 // The mock will throw a VerificationException if this method was not called at least two times
 Mokka::verify($foo, Mokka::atLeast(2))->getBar(); 
 ```
