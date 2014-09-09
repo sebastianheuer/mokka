@@ -22,7 +22,7 @@ Simply add belanur/mokka to the ```composer.json``` of your project. Since there
 
 Note: Make sure to have ```phar.readonly = Off``` in your php.ini. Otherwise building Phars is not possible.
 
-You can run ```php buildPhar.php``` to build a Phar package. It will be put in /build/mokka.phar. You can then include it in your projects:
+You can run ```php buildPhar.php``` to build a Phar package. It will be put in `/build/mokka.phar`. You can then include it in your projects:
 
 ```php
 <?php
@@ -46,7 +46,7 @@ $foo = Mokka::mock('\Acme\Foo');
 $foo->getBar(); // => NULL
 
 ```
-You can stub methods with when() and thenReturn()
+You can stub methods with `when()` and `thenReturn()`
 ```php
 <?php
 Mokka::when($mock)->getBar('baz')->thenReturn('foobar');
@@ -57,15 +57,18 @@ $foo->getBar('foo'); // => NULL
 $foo->getBar('baz'); // => 'foobar'
 ```
 
-You can verify if and how often a method was called with verify().
+You can verify if and how often a method was called with `verify()`.
 ```php
 <?php
 // The mock will throw a VerificationException if this method was not called once
 Mokka::verify($foo)->getBar();
+
 // The mock will throw a VerificationException if this method was not called three times
-Mokka::verify($foo, 3)->getBar(); //
+Mokka::verify($foo, 3)->getBar();
+
 // The mock will throw a VerificationException if this method was called
 Mokka::verify($foo, Mokka::never())->getBar();
+
 // The mock will throw a VerificationException if this method was not called at least two times
 Mokka::verify($foo, Mokka::atLeast(2))->getBar(); 
 ```
@@ -74,7 +77,8 @@ Mokka::verify($foo, Mokka::atLeast(2))->getBar();
 
 Since Mokka's methods can be called statically (e.g. `Mokka::mock(\Acme\Foo::class)`), you can just start using Mokka in PHPUnit:
 
-```<?php
+```php
+<?php
 class FooTest extends PHPUnit_Framework_TestCase
 {
   public function testFoo()
@@ -87,7 +91,8 @@ class FooTest extends PHPUnit_Framework_TestCase
 
 However Mokka also comes with the `MokkaTestCase` class, which acts as a proxy:
 
-```<?php
+```php
+<?php
 class FooTest extends MokkaTestCase
 {
   public function testFoo()
