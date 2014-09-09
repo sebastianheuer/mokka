@@ -53,3 +53,7 @@ var_dump($foo->getBar('foo')); // => NULL
 
 echo $foo->getBar('baz'); // => foobar
 ```
+
+## Using Mokka in IntelliJ / PHPStorm
+
+The [DynamicReturnTypeValue Plugin](http://plugins.jetbrains.com/plugin/7251) provides improved code completion support for methods like Mokka::mock() or Mokka::verify(). A dynamicReturnTypeMeta.json file is included in Mokka.
