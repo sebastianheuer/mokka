@@ -54,6 +54,34 @@ var_dump($foo->getBar('foo')); // => NULL
 echo $foo->getBar('baz'); // => foobar
 ```
 
-## Using Mokka in IntelliJ / PHPStorm
+## Using Mokka in PHPUnit 
+
+Since Mokka's methods can be called statically (e.g. `Mokka::mock(\Acme\Foo::class)`), you can just start using Mokka in PHPUnit:
+
+```<?php
+class FooTest extends PHPUnit_Framework_TestCase
+{
+  public function testFoo()
+  {
+    $mockedBar = Mokka::mock(\Acme\Bar::class);
+    $foo = new \Acme\Foo($mockedBar);
+  }
+}
+```
+
+However Mokka also comes with the `MokkaTestCase` class, which acts as a proxy:
+
+```<?php
+class FooTest extends MokkaTestCase
+{
+  public function testFoo()
+  {
+    $mockedBar = $this->mock(\Acme\Bar::class);
+    $foo = new \Acme\Foo($mockedBar);
+  }
+}
+```
+
+## Code Completion in IntelliJ / PHPStorm
 
 The [DynamicReturnTypeValue Plugin](http://plugins.jetbrains.com/plugin/7251) provides improved code completion support for methods like Mokka::mock() or Mokka::verify(). A dynamicReturnTypeMeta.json file is included in Mokka.
