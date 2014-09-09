@@ -74,7 +74,8 @@ Mokka::verify($foo, Mokka::atLeast(2))->getBar();
 
 Since Mokka's methods can be called statically (e.g. `Mokka::mock(\Acme\Foo::class)`), you can just start using Mokka in PHPUnit:
 
-```<?php
+```php
+<?php
 class FooTest extends PHPUnit_Framework_TestCase
 {
   public function testFoo()
@@ -87,7 +88,8 @@ class FooTest extends PHPUnit_Framework_TestCase
 
 However Mokka also comes with the `MokkaTestCase` class, which acts as a proxy:
 
-```<?php
+```php
+<?php
 class FooTest extends MokkaTestCase
 {
   public function testFoo()
