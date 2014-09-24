@@ -143,7 +143,7 @@ class Mokka
                     }
                 }
 
-                $arguments .= sprintf('%s %s %s ,', $type, '$' . $parameter->getName(), $default);
+                $arguments .= sprintf('%s $%s %s ,', $type, $parameter->getName(), $default);
             }
             $arguments = rtrim($arguments, ',');
         }
