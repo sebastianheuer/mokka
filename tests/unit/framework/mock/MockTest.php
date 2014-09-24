@@ -68,14 +68,15 @@ class MockTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsExpectedMethod()
     {
-        // TODO find out what's wrong here.
-        $this->markTestSkipped('Fails for unknown reasons that are yet to be discovered');
         $this->_mock->listenForVerification();
         $this->_mock->doFoo();
-        $expected = array(
-            md5('doFoo' . json_encode(array())) => new MockedMethod(array(), new Once())
-        );
+
+        $expectedMethod = new MockedMethod(array(), new Once());
+        $expected = array(md5('doFoo' . json_encode(array())) => $expectedMethod);
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
+
+        // Workaround to prevent a VerificationException on $expectedMethod
+        $expectedMethod->call(array());
         $this->_mock->doFoo();
     }
 
