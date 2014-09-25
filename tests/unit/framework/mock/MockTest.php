@@ -90,4 +90,20 @@ class MockTest extends \PHPUnit_Framework_TestCase
         unset($this->_mock);
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testThenReturnThrowsExceptionIfMockIsNotListeningForStub()
+    {
+        $this->_mock->thenReturn('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testListenForVerificationThrowsExceptionIfInvokationRuleIsInvalid()
+    {
+        $this->_mock->listenForVerification('foo');
+    }
+
 } 

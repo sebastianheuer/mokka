@@ -64,4 +64,13 @@ class AtLeastTest extends \PHPUnit_Framework_TestCase
             array(3, 2, FALSE)
         );
     }
+
+    public function testGetErrorMessage()
+    {
+        $rule = new AtLeast(3);
+        $this->assertEquals(
+            'Method should have been called at least 3 times, but was called 2 times',
+            $rule->getErrorMessage(2)
+        );
+    }
 }
