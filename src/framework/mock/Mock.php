@@ -33,7 +33,7 @@
 namespace Mokka\Mock;
 
 use Mokka\Method\Invokation\Exactly;
-use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Method\Invokation\Once;
 use Mokka\Method\Method;
 use Mokka\Method\MockedMethod;
@@ -137,7 +137,7 @@ trait Mock
     }
 
     /**
-     * @param int|NULL|ExpectedInvokationCount $expectedInvokationCount
+     * @param int|NULL|InvokationRule $expectedInvokationCount
      * @throws \InvalidArgumentException
      */
     public function listenForVerification($expectedInvokationCount = NULL)
@@ -146,7 +146,7 @@ trait Mock
             $expectedInvokationCount = new Once();
         } elseif (is_int($expectedInvokationCount)) {
             $expectedInvokationCount = new Exactly($expectedInvokationCount);
-        } elseif (!$expectedInvokationCount instanceof ExpectedInvokationCount) {
+        } elseif (!$expectedInvokationCount instanceof InvokationRule) {
             throw new \InvalidArgumentException(
                 'expected invokation count must be either NULL, an integer or implement ExpectedInvocationCount interface'
             );

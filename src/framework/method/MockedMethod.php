@@ -32,7 +32,7 @@
  */
 namespace Mokka\Method;
 
-use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\InvokationRule;
 use Mokka\VerificationException;
 
 /**
@@ -54,15 +54,15 @@ class MockedMethod implements Method
     private $_invokationCounter = 0;
 
     /**
-     * @var ExpectedInvokationCount number of times this method should be called during execution
+     * @var InvokationRule number of times this method should be called during execution
      */
     private $_expectedInvokationCount;
 
     /**
      * @param array $expectedArgs
-     * @param Invokation\ExpectedInvokationCount $expectedInvokationCount
+     * @param Invokation\InvokationRule $expectedInvokationCount
      */
-    public function __construct(array $expectedArgs, ExpectedInvokationCount $expectedInvokationCount)
+    public function __construct(array $expectedArgs, InvokationRule $expectedInvokationCount)
     {
         $this->_expectedArgs = $expectedArgs;
         $this->_expectedInvokationCount = $expectedInvokationCount;

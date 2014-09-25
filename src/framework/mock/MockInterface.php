@@ -32,7 +32,7 @@
  */
 namespace Mokka\Mock;
 
-use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\InvokationRule;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -53,7 +53,7 @@ interface MockInterface
     public function listenForStub();
 
     /**
-     * @param int|NULL|ExpectedInvokationCount $expectedInvokationCount
+     * @param int|NULL|InvokationRule $expectedInvokationCount
      */
     public function listenForVerification($expectedInvokationCount);
 } 

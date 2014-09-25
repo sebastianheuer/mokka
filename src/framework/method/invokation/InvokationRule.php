@@ -38,10 +38,10 @@ namespace Mokka\Method\Invokation;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-interface ExpectedInvokationCount
+interface InvokationRule
 {
     /**
-     * Determines if the fiven invokation count is valid for this InvokationRule
+     * Determines if the given invokation count is valid for this InvokationRule
      *
      * @param int $count
      * @return boolean

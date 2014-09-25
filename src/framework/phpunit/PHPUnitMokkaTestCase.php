@@ -32,7 +32,7 @@
  */
 namespace Mokka\PHPUnit;
 
-use Mokka\Method\Invokation\ExpectedInvokationCount;
+use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
 
@@ -64,7 +64,7 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param MockInterface $mock
-     * @param null|int|ExpectedInvokationCount $expectedInvokationCount
+     * @param null|int|InvokationRule $expectedInvokationCount
      * @return MockInterface
      */
     public function verify(MockInterface $mock, $expectedInvokationCount = NULL)

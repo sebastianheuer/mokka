@@ -38,7 +38,7 @@ namespace Mokka\Method\Invokation;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class AtLeast implements ExpectedInvokationCount
+class AtLeast implements InvokationRule
 {
     /**
      * @var int
@@ -54,7 +54,7 @@ class AtLeast implements ExpectedInvokationCount
     }
 
     /**
-     * Determines if the fiven invokation count is valid for this InvokationRule
+     * Determines if the given invokation count is valid for this InvokationRule
      *
      * @param int $count
      * @return boolean
