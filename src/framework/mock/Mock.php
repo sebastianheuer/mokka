@@ -65,7 +65,7 @@ trait Mock
     /**
      * @var int|InvokationRule
      */
-    private $_expectedInvokationCount = 1;
+    private $_invokationRule = 1;
 
     /**
      * @var bool
@@ -137,22 +137,22 @@ trait Mock
     }
 
     /**
-     * @param int|NULL|InvokationRule $expectedInvokationCount
+     * @param int|NULL|InvokationRule $invokationRule
      * @throws \InvalidArgumentException
      */
-    public function listenForVerification($expectedInvokationCount = NULL)
+    public function listenForVerification($invokationRule = NULL)
     {
-        if (NULL === $expectedInvokationCount) {
-            $expectedInvokationCount = new Once();
-        } elseif (is_int($expectedInvokationCount)) {
-            $expectedInvokationCount = new Exactly($expectedInvokationCount);
-        } elseif (!$expectedInvokationCount instanceof InvokationRule) {
+        if (NULL === $invokationRule) {
+            $invokationRule = new Once();
+        } elseif (is_int($invokationRule)) {
+            $invokationRule = new Exactly($invokationRule);
+        } elseif (!$invokationRule instanceof InvokationRule) {
             throw new \InvalidArgumentException(
                 'expected invokation count must be either NULL, an integer or implement ExpectedInvocationCount interface'
             );
         }
         $this->_listeningForVerification = TRUE;
-        $this->_expectedInvokationCount = $expectedInvokationCount;
+        $this->_invokationRule = $invokationRule;
     }
 
     /**
@@ -169,7 +169,7 @@ trait Mock
             $this->_lastArgs = $args;
             if ($this->_listeningForVerification) {
                 $this->_addMockedMethod(
-                    $identifier, $originalMethod, new MockedMethod($args, $this->_expectedInvokationCount)
+                    $identifier, $originalMethod, new MockedMethod($args, $this->_invokationRule)
                 );
             }
             return $this;
