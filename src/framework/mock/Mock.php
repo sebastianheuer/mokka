@@ -63,7 +63,7 @@ trait Mock
     private $_listeningForVerification = FALSE;
 
     /**
-     * @var int
+     * @var int|InvokationRule
      */
     private $_expectedInvokationCount = 1;
 
