@@ -1,0 +1,43 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mokka PHP Mocking Framework 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-29 23:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/installation.rst:2
+msgid "Installation"
+msgstr ""
+
+#: ../../source/installation.rst:5
+msgid "Composer"
+msgstr ""
+
+#: ../../source/installation.rst:7
+msgid ""
+"Simply add belanur/mokka to the composer.json of your project. Use \"dev-"
+"master\" for the latest version:"
+msgstr ""
+
+#: ../../source/installation.rst:18
+msgid "Checking out the latest sources"
+msgstr ""
+
+#: ../../source/installation.rst:20
+msgid ""
+"Mokka sources are available on `GitHub <https://github.com/belanur/mokka>`_."
+" Simply clone them and checkout the desired branch (master should be fine in"
+" most cases):"
+msgstr ""
+
+#: ../../source/installation.rst:35
+msgid ""
+"If you want to contribute to Mokka, `fork it "
+"<https://help.github.com/articles/fork-a-repo>`_!"
+msgstr ""

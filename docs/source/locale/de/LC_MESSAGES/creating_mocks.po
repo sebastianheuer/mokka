@@ -1,0 +1,59 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mokka PHP Mocking Framework 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-29 23:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/creating_mocks.rst:2
+msgid "Creating Mocks"
+msgstr "Mocks erzeugen"
+
+#: ../../source/creating_mocks.rst:4
+msgid ""
+"Mocks are created with Mokka::mock() along with the name of the class that "
+"you want to mock. Starting with PHP 5.5 you can use the 'class' keyword, "
+"which is highly recommended to allow support for refactoring tools."
+msgstr ""
+"Mocks werden mit Mokka::mock() unter Angabe des Namens der Klasse, die gemockt werden soll, erzeugt."
+"Ab PHP 5.5 kann dafür das 'class' Schlüsselwort verwendet werden,"
+"was wegen des besseren Refactoring-Supports empfohlen wird."
+
+#: ../../source/creating_mocks.rst:13
+msgid ""
+"If you are using PHP 5.4 (which is the minimum required for Mokka), you can "
+"pass the class name as a string."
+msgstr ""
+"Mit PHP 5.4 (die minimale Version, mit der Mokka funktioniert) muss der Klassenname als String übergeben werden"
+
+#: ../../source/creating_mocks.rst:20
+msgid ""
+"The huge drawback of this is that your IDE won't recognize this as a class "
+"name. Your mocks will break if you rename 'SampleClass' to something else "
+"with a refactoring tool."
+msgstr ""
+"Diese Methode hat den großen Nachteil, dass IDEs den String nicht als Klassennamen erkennen."
+"Dadurch muss der Test manuell korrigiert werden, wenn 'SampleClass' mit einem Refactoring-Tool umbenannt wird."
+
+
+#: ../../source/creating_mocks.rst:24
+msgid "Using Mocks"
+msgstr "Mocks verwenden"
+
+#: ../../source/creating_mocks.rst:26
+msgid ""
+"The created Mock implements all methods of the mocked class (plus a few "
+"internal methods needed for mocking and stubbing). All methods will return "
+"NULL when you call them. See :doc:`mocking` and :doc:`stubbing` for "
+"information on how to mock and stub those methods."
+msgstr ""
+"Der erzeugte Mock implementiert alle Methoden der gemockten Klasse"
+"(plus ein paar interne Methoden, die zum Mocken und Stubben benötigt werden). "
+"Alle Methoden geben NULL zurück. Weitere Informationen zu Mocks und Stubs finden sich"
+"unter :doc:`mocking` und :doc:`stubbing`."

@@ -1,0 +1,33 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mokka PHP Mocking Framework 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-29 23:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/stubbing.rst:2
+msgid "Stubbing"
+msgstr ""
+
+#: ../../source/stubbing.rst:4
+msgid ""
+"Stubbing a method lets you define a return value. A stubbed method does not "
+"have an Invokation Rule (like mocked methods), so if a stubbed method is not"
+" called, no exception is thrown."
+msgstr ""
+
+#: ../../source/stubbing.rst:19
+msgid "You can also use the special AnythingArgument here:"
+msgstr ""
+
+#: ../../source/stubbing.rst:30
+msgid ""
+"If you want to verify that a method gets called and also want to set a "
+"return value, you must add a mock and a stub:"
+msgstr ""

@@ -1,0 +1,37 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mokka PHP Mocking Framework 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-29 23:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/mocking.rst:2
+msgid "Mocking"
+msgstr ""
+
+#: ../../source/mocking.rst:4
+msgid ""
+"Mocking a method lets you verify that a method was called with the given "
+"arguments."
+msgstr ""
+
+#: ../../source/mocking.rst:14
+msgid "You can use optional Invokation Rules with Mokka::verify():"
+msgstr ""
+
+#: ../../source/mocking.rst:28
+msgid ""
+"You can add multiple mocks for a single method with different arguments"
+msgstr ""
+
+#: ../../source/mocking.rst:37
+msgid ""
+"There is also a special AnythingArgument, so you don't have to verify every "
+"single argument if it is not relevant for your test."
+msgstr ""
