@@ -24,10 +24,12 @@ msgid ""
 "Simply add belanur/mokka to the composer.json of your project. Use \"dev-"
 "master\" for the latest version:"
 msgstr ""
+"belanur/mokka kann einfach zur composer.json des Projekts hinzugefügt werden. "
+"Die aktuelle Version erhält man mit \"dev-master\":"
 
 #: ../../source/installation.rst:18
 msgid "Checking out the latest sources"
-msgstr ""
+msgstr "Aktuellen Quellcode auschecken"
 
 #: ../../source/installation.rst:20
 msgid ""
@@ -35,9 +37,12 @@ msgid ""
 " Simply clone them and checkout the desired branch (master should be fine in"
 " most cases):"
 msgstr ""
+"Der Mokka Quellcode ist auf `GitHub <https://github.com/belanur/mokka>`_ verfügbar. "
+"Der Branch master sollte in den meisten Fällen verwendet werden."
 
 #: ../../source/installation.rst:35
 msgid ""
 "If you want to contribute to Mokka, `fork it "
 "<https://help.github.com/articles/fork-a-repo>`_!"
 msgstr ""
+"Um an Mokka mitzuarbeiten, sollte ein `Fork erzeugt werden <https://help.github.com/articles/fork-a-repo>`_!"
