@@ -13,10 +13,12 @@ msgstr ""
 
 #: ../../source/phpunit.rst:2
 msgid "Mokka with PHPUnit"
-msgstr ""
+msgstr "Mokka mit PHPUnit"
 
 #: ../../source/phpunit.rst:4
 msgid ""
 "Mokka comes with the MokkaTestCase class, which provides easy access to "
 "mocking functions and adds support for PHPUnit"
 msgstr ""
+"Mokka bringt die Klasse MokkaTestCase mit, die einfachen Zugriff auf die Mokka-Funktionen bietet "
+"und zusätzlichen Support für PHPUnit bereitstellt."
