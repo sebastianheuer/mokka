@@ -75,4 +75,47 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
         $this->assertTrue(TRUE);
         return Mokka::verify($mock, $expectedInvokationCount);
     }
+
+    /**
+     * @return \Mokka\Method\Invokation\Once
+     */
+    public static function once()
+    {
+        return Mokka::once();
+    }
+
+    /**
+     * @param int $count
+     * @return \Mokka\Method\Invokation\Exactly
+     */
+    public static function exactly($count)
+    {
+        return Mokka::exactly($count);
+    }
+
+    /**
+     * @return \Mokka\Method\Invokation\Never
+     */
+    public static function never()
+    {
+        return Mokka::never();
+    }
+
+    /**
+     * @param $count
+     * @return \Mokka\Method\Invokation\AtLeast
+     */
+    public static function atLeast($count)
+    {
+        return Mokka::atLeast($count);
+    }
+
+    /**
+     * @return \Mokka\Method\AnythingArgument
+     */
+    public static function anything()
+    {
+        return Mokka::anything();
+    }
+
 } 
