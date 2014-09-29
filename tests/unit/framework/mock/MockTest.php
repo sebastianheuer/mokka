@@ -32,6 +32,7 @@
  */
 namespace Mokka\Tests;
 
+use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Once;
 use Mokka\Method\MockedMethod;
 use Mokka\Method\StubbedMethod;
@@ -61,7 +62,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->doFoo();
         $this->_mock->thenReturn('someValue');
         $expected = array(
-            md5('doFoo' . json_encode(array())) => new StubbedMethod(array(), 'someValue')
+            md5('doFoo' . json_encode(new ArgumentCollection())) => new StubbedMethod('doFoo', new ArgumentCollection(), 'someValue')
         );
         $this->assertAttributeEquals($expected, '_stubs', $this->_mock);
     }
@@ -71,12 +72,12 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->listenForVerification();
         $this->_mock->doFoo();
 
-        $expectedMethod = new MockedMethod(array(), new Once());
-        $expected = array(md5('doFoo' . json_encode(array())) => $expectedMethod);
+        $expectedMethod = new MockedMethod('doFoo', new ArgumentCollection(), new Once());
+        $expected = array(md5('doFoo' . json_encode(new ArgumentCollection())) => $expectedMethod);
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
 
         // Workaround to prevent a VerificationException on $expectedMethod
-        $expectedMethod->call(array());
+        $expectedMethod->call(new ArgumentCollection());
         $this->_mock->doFoo();
     }
 

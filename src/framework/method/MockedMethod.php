@@ -44,9 +44,9 @@ use Mokka\VerificationException;
 class MockedMethod implements Method
 {
     /**
-     * @var array
+     * @var ArgumentCollection
      */
-    private $_expectedArgs = array();
+    private $_expectedArgs;
 
     /**
      * @var bool indicates if this method has been called during execution (only relevant if $_mustBeCalled is TRUE)
@@ -56,37 +56,47 @@ class MockedMethod implements Method
     /**
      * @var InvokationRule number of times this method should be called during execution
      */
-    private $_expectedInvokationCount;
+    private $_invokationRule;
 
     /**
-     * @param array $expectedArgs
+     * @var string
+     */
+    private $_name = '';
+
+    /**
+     * @param string $name
+     * @param ArgumentCollection $expectedArgs
      * @param Invokation\InvokationRule $expectedInvokationCount
      */
-    public function __construct(array $expectedArgs, InvokationRule $expectedInvokationCount)
+    public function __construct($name, ArgumentCollection $expectedArgs, InvokationRule $expectedInvokationCount)
     {
+        $this->_name = $name;
         $this->_expectedArgs = $expectedArgs;
-        $this->_expectedInvokationCount = $expectedInvokationCount;
+        $this->_invokationRule = $expectedInvokationCount;
     }
 
     /**
-     * @param array $actualArgs
-     * @return null
+     * @param ArgumentCollection $actualArgs
      * @throws VerificationException
+     * @return null
      */
-    public function call(array $actualArgs)
+    public function call(ArgumentCollection $actualArgs)
     {
         $this->_invokationCounter++;
-        foreach ($this->_expectedArgs as $index => $arg) {
-            if (!array_key_exists($index, $actualArgs)) {
+        $i = 0;
+        foreach ($this->_expectedArgs->getArguments() as $index => $expectedArgument) {
+            if (!$actualArgs->hasArgumentAtPosition($index)) {
                 throw new VerificationException(
-                    sprintf('Argument %s should be %s, is missing', $index, $arg)
+                    sprintf('Argument %s should be %s, is missing', $i, $expectedArgument->getValue())
                 );
             }
-            if ($actualArgs[$index] != $arg) {
+            $actualArgument = $actualArgs->getArgumentAtPosition($i);
+            if ($actualArgument != $expectedArgument) {
                 throw new VerificationException(
-                    sprintf('Argument %s should be %s, is %s', $index, $arg, $actualArgs[$index])
+                    sprintf('Argument %s should be %s, is %s', $i, $expectedArgument->getValue(), $actualArgument->getValue())
                 );
             }
+            $i++;
         }
         return NULL;
     }
@@ -96,9 +106,24 @@ class MockedMethod implements Method
      */
     public function __destruct()
     {
-        if (!$this->_expectedInvokationCount->isValidInvokationCount($this->_invokationCounter)) {
-            throw new VerificationException($this->_expectedInvokationCount->getErrorMessage($this->_invokationCounter));
+        if (!$this->_invokationRule->isValidInvokationCount($this->_invokationCounter)) {
+            throw new VerificationException($this->_invokationRule->getErrorMessage($this->_invokationCounter));
         }
     }
 
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return md5($this->_name . json_encode($this->_expectedArgs));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
 }

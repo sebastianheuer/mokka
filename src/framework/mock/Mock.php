@@ -32,6 +32,8 @@
  */
 namespace Mokka\Mock;
 
+use Mokka\Method\Argument;
+use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Exactly;
 use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Method\Invokation\Once;
@@ -73,46 +75,32 @@ trait Mock
     private $_listeningForStub = FALSE;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $_lastMethod;
+    private $_lastMethod = '';
 
     /**
-     * @var array
+     * @var ArgumentCollection
      */
-    private $_lastArgs = array();
+    private $_lastArgs;
 
     /**
-     * @param string $identifier
-     * @param string $name
-     * @param Method $method
+     * @param MockedMethod $method
      */
-    private function _addMockedMethod($identifier, $name, Method $method)
+    private function _addMockedMethod(MockedMethod $method)
     {
-        $this->_methods[$identifier] = $method;
-        $this->_lastMethod = $name;
+        $this->_methods[$method->getIdentifier()] = $method;
         $this->_listeningForVerification = FALSE;
     }
 
     /**
-     * @param string $identifier
-     * @param Method $method
+     * @param StubbedMethod $method
      */
-    private function _addStubbedMethod($identifier, Method $method)
+    private function _addStubbedMethod(StubbedMethod $method)
     {
-        $this->_stubs[$identifier] = $method;
+        $this->_stubs[$method->getIdentifier()] = $method;
         $this->_lastMethod = NULL;
         $this->_listeningForStub = FALSE;
-    }
-
-    /**
-     * @param string $methodName
-     * @param array $args
-     * @return string
-     */
-    private function _getIdentifier($methodName, array $args)
-    {
-        return md5($methodName . json_encode($args));
     }
 
     /**
@@ -124,8 +112,7 @@ trait Mock
         if (!$this->_listeningForStub) {
             throw new \BadMethodCallException('Mock is not listening for a stubbed return value.');
         }
-        $identifier = $this->_getIdentifier($this->_lastMethod, $this->_lastArgs);
-        $this->_addStubbedMethod($identifier, new StubbedMethod($this->_lastArgs, $returnValue));
+        $this->_addStubbedMethod(new StubbedMethod($this->_lastMethod, $this->_lastArgs, $returnValue));
     }
 
     /**
@@ -148,7 +135,7 @@ trait Mock
             $invokationRule = new Exactly($invokationRule);
         } elseif (!$invokationRule instanceof InvokationRule) {
             throw new \InvalidArgumentException(
-                'expected invokation count must be either NULL, an integer or implement ExpectedInvocationCount interface'
+                'Invokation Rule must be either NULL, an integer or implement InvokationRule interface'
             );
         }
         $this->_listeningForVerification = TRUE;
@@ -162,27 +149,38 @@ trait Mock
      */
     private function _call($originalMethod, array $args)
     {
-        $this->_lastMethod = $originalMethod;
-        $identifier = $this->_getIdentifier($originalMethod, $args);
-
+        $arguments = new ArgumentCollection();
+        foreach ($args as $arg) {
+            $arguments->addArgument(new Argument($arg));
+        }
         if ($this->_listeningForVerification || $this->_listeningForStub) {
-            $this->_lastArgs = $args;
+            $this->_lastMethod = $originalMethod;
+            $this->_lastArgs = $arguments;
             if ($this->_listeningForVerification) {
-                $this->_addMockedMethod(
-                    $identifier, $originalMethod, new MockedMethod($args, $this->_invokationRule)
-                );
+                $this->_addMockedMethod(new MockedMethod($originalMethod, $arguments, $this->_invokationRule));
             }
             return $this;
         }
 
+        $identifier = $this->_getIdentifier($originalMethod, $arguments);
+
         if (isset($this->_methods[$identifier])) {
-            $this->_methods[$identifier]->call($args);
+            $this->_methods[$identifier]->call($arguments);
         }
         if (isset($this->_stubs[$identifier])) {
-            return $this->_stubs[$identifier]->call($args);
+            return $this->_stubs[$identifier]->call($arguments);
         }
 
         return NULL;
     }
 
+    /**
+     * @param string $methodName
+     * @param ArgumentCollection $args
+     * @return string
+     */
+    private function _getIdentifier($methodName, ArgumentCollection $args)
+    {
+        return md5($methodName . json_encode($args));
+    }
 } 

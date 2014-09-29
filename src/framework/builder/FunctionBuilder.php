@@ -3,6 +3,10 @@ namespace Mokka;
 
 class FunctionBuilder 
 {
+    /**
+     * @param \ReflectionMethod $method
+     * @return mixed|string
+     */
     public function build(\ReflectionMethod $method)
     {
         $functionDefinition = file_get_contents(__DIR__ . '/template/Function.php.template');

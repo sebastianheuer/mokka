@@ -45,20 +45,22 @@ class StubbedMethod extends MockedMethod
     private $_returnValue;
 
     /**
-     * @param array $expectedArgs
+     * @param string $name
+     * @param ArgumentCollection $expectedArgs
      * @param string $returnValue
      */
-    public function __construct(array $expectedArgs, $returnValue)
+    public function __construct($name, ArgumentCollection $expectedArgs, $returnValue)
     {
-        parent::__construct($expectedArgs, new Any());
+        parent::__construct($name, $expectedArgs, new Any());
         $this->_returnValue = $returnValue;
     }
 
     /**
-     * @param array $actualArgs
+     * @param ArgumentCollection $actualArgs
+     * @throws \Mokka\VerificationException
      * @return null
      */
-    public function call(array $actualArgs)
+    public function call(ArgumentCollection $actualArgs)
     {
         parent::call($actualArgs);
         return $this->_returnValue;

@@ -32,7 +32,6 @@
  */
 namespace Mokka\Tests\Integration;
 
-use Mokka\Mock\Mock;
 use Mokka\Mokka;
 use Mokka\Tests\Integration\Fixtures\Foo;
 use Mokka\Tests\Integration\Fixtures\FooInterface;

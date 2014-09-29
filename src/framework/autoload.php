@@ -9,6 +9,8 @@ spl_autoload_register(
             $classes = array(
                 'mokka\\classbuilder' => '/builder/ClassBuilder.php',
                 'mokka\\functionbuilder' => '/builder/FunctionBuilder.php',
+                'mokka\\method\\argument' => '/method/Argument.php',
+                'mokka\\method\\argumentcollection' => '/method/ArgumentCollection.php',
                 'mokka\\method\\invokation\\any' => '/method/invokation/Any.php',
                 'mokka\\method\\invokation\\atleast' => '/method/invokation/AtLeast.php',
                 'mokka\\method\\invokation\\exactly' => '/method/invokation/Exactly.php',
@@ -21,6 +23,7 @@ spl_autoload_register(
                 'mokka\\mock\\mock' => '/mock/Mock.php',
                 'mokka\\mock\\mockinterface' => '/mock/MockInterface.php',
                 'mokka\\mokka' => '/Mokka.php',
+                'mokka\\notfoundexception' => '/NotFoundException.php',
                 'mokka\\phpunit\\mokkatestcase' => '/phpunit/PHPUnitMokkaTestCase.php',
                 'mokka\\token' => '/Token.php',
                 'mokka\\verificationexception' => '/VerificationException.php'

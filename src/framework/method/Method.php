@@ -41,7 +41,18 @@ namespace Mokka\Method;
 interface Method 
 {
     /**
-     * @param array $actualArgs
+     * @param ArgumentCollection $actualArgs
+     * @return
      */
-    public function call(array $actualArgs);
+    public function call(ArgumentCollection $actualArgs);
+
+    /**
+     * @return string
+     */
+    public function getIdentifier();
+
+    /**
+     * @return string
+     */
+    public function getName();
 } 

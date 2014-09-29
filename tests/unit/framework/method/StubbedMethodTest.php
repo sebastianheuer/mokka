@@ -32,6 +32,8 @@
  */
 namespace Mokka\Tests;
 
+use Mokka\Method\ArgumentCollection;
+use Mokka\Method\Invokation\Any;
 use Mokka\Method\StubbedMethod;
 
 /**
@@ -47,8 +49,9 @@ class StubbedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentIsMissing()
     {
-        $method = new StubbedMethod(array('foo'), 'bar');
-        $method->call(array());
+        $arguments = new ArgumentCollection(array('foo'));
+        $method = new StubbedMethod('foo', $arguments, 'bar');
+        $method->call(new ArgumentCollection());
     }
 
     /**
@@ -56,8 +59,9 @@ class StubbedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentDoesNotMatchExpectedValue()
     {
-        $method = new StubbedMethod(array('foo'), 'bar');
-        $method->call(array('bar'));
+        $arguments = new ArgumentCollection(array('foo'));
+        $method = new StubbedMethod('foo', $arguments, 'bar');
+        $method->call(new ArgumentCollection(array('bar')));
     }
 
     /**
@@ -65,7 +69,8 @@ class StubbedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallReturnsExpectedReturnValueIfArgumentsMatch()
     {
-        $method = new StubbedMethod(array('foo'), 'bar');
-        $this->assertEquals('bar', $method->call(array('foo')));
+        $arguments = new ArgumentCollection(array('foo'));
+        $method = new StubbedMethod('foo', $arguments, 'bar');
+        $this->assertEquals('bar', $method->call(new ArgumentCollection(array('foo'))));
     }
 } 

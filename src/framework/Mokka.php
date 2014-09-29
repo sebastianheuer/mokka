@@ -48,8 +48,8 @@ use Mokka\Mock\MockInterface;
 class Mokka
 {
     /**
-     *
      * Mock an object
+     *
      * @param string $classname
      * @return \Mokka\Mock\MockInterface
      */
@@ -61,8 +61,7 @@ class Mokka
            Maybe there is a nicer way to dynamically create a class */
         eval($classDefinition);
         /** @var MockInterface $mock */
-        $mock = new $mockClassname();
-        return $mock;
+        return new $mockClassname();
     }
 
     /**

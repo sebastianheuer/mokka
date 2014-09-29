@@ -32,6 +32,8 @@
  */
 namespace Mokka\Tests;
 
+use Mokka\Method\Argument;
+use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Any;
 use Mokka\Method\MockedMethod;
 
@@ -48,8 +50,9 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentIsMissing()
     {
-        $method = new MockedMethod(array('foo'), new Any());
-        $method->call(array());
+        $arguments = new ArgumentCollection(array('foo'));
+        $method = new MockedMethod('foo', $arguments, new Any());
+        $method->call(new ArgumentCollection());
     }
 
     /**
@@ -57,8 +60,10 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfArgumentDoesNotMatchExpectedValue()
     {
-        $method = new MockedMethod(array('foo'), new Any());
-        $method->call(array('bar'));
+        $arguments = new ArgumentCollection();
+        $arguments->addArgument(new Argument('foo'));
+        $method = new MockedMethod('foo', $arguments, new Any());
+        $method->call(new ArgumentCollection(array('bar')));
     }
 
     /**
@@ -66,8 +71,8 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallReturnsNullIfArgumentsMatch()
     {
-        $method = new MockedMethod(array('foo'), new Any());
-        $this->assertNull($method->call(array('foo')));
+        $method = new MockedMethod('foo', new ArgumentCollection(array('foo')), new Any());
+        $this->assertNull($method->call(new ArgumentCollection(array('foo'))));
     }
 
 } 
