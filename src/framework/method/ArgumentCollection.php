@@ -43,7 +43,7 @@ use Mokka\NotFoundException;
 class ArgumentCollection
 {
     /**
-     * @var Argument[]
+     * @var ArgumentInterface[]
      */
     private $_arguments = array();
 
@@ -58,9 +58,9 @@ class ArgumentCollection
     }
 
     /**
-     * @param Argument $argument
+     * @param ArgumentInterface $argument
      */
-    public function addArgument(Argument $argument)
+    public function addArgument(ArgumentInterface $argument)
     {
         $this->_arguments[] = $argument;
     }
@@ -76,7 +76,7 @@ class ArgumentCollection
 
     /**
      * @param int $position
-     * @return Argument
+     * @return ArgumentInterface
      * @throws NotFoundException
      */
     public function getArgumentAtPosition($position)
@@ -88,7 +88,7 @@ class ArgumentCollection
     }
 
     /**
-     * @return Argument[]
+     * @return ArgumentInterface[]
      * @TODO implement Iterator
      */
     public function getArguments()

@@ -91,7 +91,7 @@ class MockedMethod implements Method
                 );
             }
             $actualArgument = $actualArgs->getArgumentAtPosition($i);
-            if ($actualArgument != $expectedArgument) {
+            if (!$expectedArgument->matches($actualArgument)) {
                 throw new VerificationException(
                     sprintf('Argument %s should be %s, is %s', $i, $expectedArgument->getValue(), $actualArgument->getValue())
                 );

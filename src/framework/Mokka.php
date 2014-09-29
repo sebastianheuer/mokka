@@ -32,6 +32,7 @@
  */
 namespace Mokka;
 
+use Mokka\Method\AnythingArgument;
 use Mokka\Method\Invokation\AtLeast;
 use Mokka\Method\Invokation\Exactly;
 use Mokka\Method\Invokation\InvokationRule;
@@ -139,6 +140,14 @@ class Mokka
     public static function exactly($count)
     {
         return new Exactly($count);
+    }
+
+    /**
+     * @return AnythingArgument
+     */
+    public static function anything()
+    {
+        return new AnythingArgument();
     }
 
 } 

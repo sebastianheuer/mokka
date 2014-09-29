@@ -68,7 +68,7 @@ class MethodCollection
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
             {
-                if ($expectedArgument != $arguments->getArgumentAtPosition($index)) {
+                if (!$expectedArgument->matches($arguments->getArgumentAtPosition($index))) {
                     return FALSE;
                 }
             }
@@ -92,7 +92,7 @@ class MethodCollection
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
             {
-                if ($expectedArgument != $arguments->getArgumentAtPosition($index)) {
+                if (!$expectedArgument->matches($arguments->getArgumentAtPosition($index))) {
                     continue 2;
                 }
             }

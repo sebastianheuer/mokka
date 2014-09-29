@@ -9,8 +9,10 @@ spl_autoload_register(
             $classes = array(
                 'mokka\\classbuilder' => '/builder/ClassBuilder.php',
                 'mokka\\functionbuilder' => '/builder/FunctionBuilder.php',
+                'mokka\\method\\anythingargument' => '/method/AnythingArgument.php',
                 'mokka\\method\\argument' => '/method/Argument.php',
                 'mokka\\method\\argumentcollection' => '/method/ArgumentCollection.php',
+                'mokka\\method\\argumentinterface' => '/method/ArgumentInterface.php',
                 'mokka\\method\\invokation\\any' => '/method/invokation/Any.php',
                 'mokka\\method\\invokation\\atleast' => '/method/invokation/AtLeast.php',
                 'mokka\\method\\invokation\\exactly' => '/method/invokation/Exactly.php',

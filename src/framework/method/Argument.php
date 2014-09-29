@@ -38,7 +38,7 @@ namespace Mokka\Method;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class Argument 
+class Argument implements ArgumentInterface
 {
 
     /**
@@ -60,6 +60,15 @@ class Argument
     public function getValue()
     {
         return $this->_value;
+    }
+
+    /**
+     * @param ArgumentInterface $argument
+     * @return bool
+     */
+    public function matches(ArgumentInterface $argument)
+    {
+        return $this->getValue() == $argument->getValue();
     }
 
 } 

@@ -30,13 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
-namespace Mokka\Tests\Integration;
-
-use Mokka\Method\Invokation\Exactly;
-use Mokka\Method\Invokation\Never;
-use Mokka\Mock\Mock;
-use Mokka\Mokka;
-use Mokka\Tests\Integration\Fixtures\SampleClass;
+namespace Mokka\Method;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -44,58 +38,25 @@ use Mokka\Tests\Integration\Fixtures\SampleClass;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MockVerificationTest extends MockTestCase
+class AnythingArgument implements ArgumentInterface
 {
     /**
-     * @expectedException \Mokka\VerificationException
+     * @param ArgumentInterface $argument
+     * @return bool
      */
-    public function testThrowsExceptionIfVerificationIsNotMet()
+    public function matches(ArgumentInterface $argument)
     {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock)->setBar();
-    }
-
-    public function testDoesNotThrowExeptionIfVerifiedMethodWasCalled()
-    {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock)->setBar();
-        $this->assertNull($mock->setBar());
-    }
-
-    public function testVerifiesIfParamIsNull()
-    {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock)->setFoobar('foo', NULL);
-        $this->assertNull($mock->setFoobar('foo', NULL));
-    }
-
-    public function testVerifiesMethodWithAnythingParam()
-    {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock)->setFoobar(Mokka::anything(), 'foo');
-        $this->assertNull($mock->setFoobar('bar', 'foo'));
+        return TRUE;
     }
 
     /**
-     * @expectedException \Mokka\VerificationException
-     * @expectedExceptionMessage Method should have been called exactly 3 times, but was called 2 times
+     * AnythingArguments do not have a value
+     *
+     * @return NULL
      */
-    public function testThrowsExceptionIfExpectedInvokationCountIsNotMet()
+    public function getValue()
     {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock, new Exactly(3))->setBar();
-        $mock->setBar();
-        $mock->setBar();
-    }
-
-    /**
-     * @expectedException \Mokka\VerificationException
-     */
-    public function testVerifiesThatMethodWasNotCalled()
-    {
-        $mock = Mokka::mock(SampleClass::class);
-        Mokka::verify($mock, new Never())->setBar();
-        $mock->setBar();
+        return NULL;
     }
 
 } 

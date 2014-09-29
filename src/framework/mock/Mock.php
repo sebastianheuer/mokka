@@ -32,6 +32,7 @@
  */
 namespace Mokka\Mock;
 
+use Mokka\Method\AnythingArgument;
 use Mokka\Method\Argument;
 use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Exactly;
@@ -151,6 +152,10 @@ trait Mock
     {
         $arguments = new ArgumentCollection();
         foreach ($args as $arg) {
+            if ($arg instanceof AnythingArgument) {
+                $arguments->addArgument($arg);
+                continue;
+            }
             $arguments->addArgument(new Argument($arg));
         }
         if ($this->_listeningForVerification || $this->_listeningForStub) {
