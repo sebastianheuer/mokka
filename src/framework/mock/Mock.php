@@ -37,7 +37,7 @@ use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Exactly;
 use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Method\Invokation\Once;
-use Mokka\Method\Method;
+use Mokka\Method\MethodCollection;
 use Mokka\Method\MockedMethod;
 use Mokka\Method\StubbedMethod;
 
@@ -50,14 +50,14 @@ use Mokka\Method\StubbedMethod;
 trait Mock
 {
     /**
-     * @var Method[]
+     * @var MethodCollection
      */
-    private $_methods = array();
+    private $_methods;
 
     /**
-     * @var StubbedMethod[]
+     * @var MethodCollection
      */
-    private $_stubs = array();
+    private $_stubs;
 
     /**
      * @var bool
@@ -89,7 +89,7 @@ trait Mock
      */
     private function _addMockedMethod(MockedMethod $method)
     {
-        $this->_methods[$method->getIdentifier()] = $method;
+        $this->_getMethods()->addMethod($method);
         $this->_listeningForVerification = FALSE;
     }
 
@@ -98,7 +98,7 @@ trait Mock
      */
     private function _addStubbedMethod(StubbedMethod $method)
     {
-        $this->_stubs[$method->getIdentifier()] = $method;
+        $this->_getStubs()->addMethod($method);
         $this->_lastMethod = NULL;
         $this->_listeningForStub = FALSE;
     }
@@ -143,44 +143,56 @@ trait Mock
     }
 
     /**
-     * @param string $originalMethod
+     * @param string $methodName
      * @param array $args
      * @return NULL
      */
-    private function _call($originalMethod, array $args)
+    private function _call($methodName, array $args)
     {
         $arguments = new ArgumentCollection();
         foreach ($args as $arg) {
             $arguments->addArgument(new Argument($arg));
         }
         if ($this->_listeningForVerification || $this->_listeningForStub) {
-            $this->_lastMethod = $originalMethod;
+            $this->_lastMethod = $methodName;
             $this->_lastArgs = $arguments;
             if ($this->_listeningForVerification) {
-                $this->_addMockedMethod(new MockedMethod($originalMethod, $arguments, $this->_invokationRule));
+                $this->_addMockedMethod(new MockedMethod($methodName, $arguments, $this->_invokationRule));
             }
             return $this;
         }
 
-        $identifier = $this->_getIdentifier($originalMethod, $arguments);
-
-        if (isset($this->_methods[$identifier])) {
-            $this->_methods[$identifier]->call($arguments);
+        if ($this->_getMethods()->hasMethod($methodName, $arguments)) {
+            $this->_getMethods()->getMethod($methodName, $arguments)->call($arguments);
         }
-        if (isset($this->_stubs[$identifier])) {
-            return $this->_stubs[$identifier]->call($arguments);
+        
+        if ($this->_getStubs()->hasMethod($methodName, $arguments)) {
+            return $this->_getStubs()->getMethod($methodName, $arguments)->call($arguments);
         }
 
         return NULL;
     }
 
     /**
-     * @param string $methodName
-     * @param ArgumentCollection $args
-     * @return string
+     * @return MethodCollection
      */
-    private function _getIdentifier($methodName, ArgumentCollection $args)
+    private function _getMethods()
     {
-        return md5($methodName . json_encode($args));
+        if (NULL === $this->_methods) {
+            $this->_methods = new MethodCollection();
+        }
+        return $this->_methods;
     }
-} 
+
+    /**
+     * @return MethodCollection
+     */
+    private function _getStubs()
+    {
+        if (NULL === $this->_stubs) {
+            $this->_stubs = new MethodCollection();
+        }
+        return $this->_stubs;
+    }    
+    
+}

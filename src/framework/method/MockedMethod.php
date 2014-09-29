@@ -126,4 +126,12 @@ class MockedMethod implements Method
     {
         return $this->_name;
     }
+
+    /**
+     * @return ArgumentCollection
+     */
+    public function getArguments()
+    {
+        return $this->_expectedArgs;
+    }
 }

@@ -30,14 +30,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
-namespace Mokka\Tests;
-
-use Mokka\Method\ArgumentCollection;
-use Mokka\Method\Invokation\Once;
-use Mokka\Method\MethodCollection;
-use Mokka\Method\MockedMethod;
-use Mokka\Method\StubbedMethod;
-use Mokka\Mock;
+namespace Mokka\Method;
+use Mokka\NotFoundException;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -45,67 +39,65 @@ use Mokka\Mock;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MockTest extends \PHPUnit_Framework_TestCase
+class MethodCollection 
 {
     /**
-     * @var MockStub
+     * @var Method[]
      */
-    private $_mock;
+    private $_methods = array();
 
-    public function setUp()
+    /**
+     * @param Method $method
+     */
+    public function addMethod(Method $method)
     {
-        $this->_mock = new MockStub();
-    }
-
-    public function testAddsExpectedStub()
-    {
-        $this->_mock->listenForStub();
-        $this->_mock->doFoo();
-        $this->_mock->thenReturn('someValue');
-        $expected = new MethodCollection();
-        $expected->addMethod(new StubbedMethod('doFoo', new ArgumentCollection(), 'someValue'));
-        $this->assertAttributeEquals($expected, '_stubs', $this->_mock);
-    }
-
-    public function testAddsExpectedMethod()
-    {
-        $this->_mock->listenForVerification();
-        $this->_mock->doFoo();
-
-        $expectedMethod = new MockedMethod('doFoo', new ArgumentCollection(), new Once());
-        $expected = new MethodCollection();
-        $expected->addMethod($expectedMethod);
-        $this->assertAttributeEquals($expected, '_methods', $this->_mock);
-
-        // Workaround to prevent a VerificationException on $expectedMethod
-        $expectedMethod->call(new ArgumentCollection());
-        $this->_mock->doFoo();
+        $this->_methods[] = $method;
     }
 
     /**
-     * @expectedException \Mokka\VerificationException
+     * @param string $methodName
+     * @param ArgumentCollection $arguments
+     * @return bool
      */
-    public function testThrowsExceptionIfVerifiedMethodWasNotCalled()
+    public function hasMethod($methodName, ArgumentCollection $arguments)
     {
-        $this->_mock->listenForVerification();
-        $this->_mock->doFoo();
-        unset($this->_mock);
+        foreach ($this->_methods as $key => $method)
+        {
+            if ($method->getName() !== $methodName) {
+                continue;
+            }
+            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
+            {
+                if ($expectedArgument != $arguments->getArgumentAtPosition($index)) {
+                    return FALSE;
+                }
+            }
+            return TRUE;
+        }
+        return FALSE;
     }
 
     /**
-     * @expectedException \BadMethodCallException
+     * @param string $methodName
+     * @param ArgumentCollection $arguments
+     * @return Method
+     * @throws NotFoundException
      */
-    public function testThenReturnThrowsExceptionIfMockIsNotListeningForStub()
+    public function getMethod($methodName, ArgumentCollection $arguments)
     {
-        $this->_mock->thenReturn('foo');
+        foreach ($this->_methods as $key => $method)
+        {
+            if ($method->getName() !== $methodName) {
+                continue;
+            }
+            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
+            {
+                if ($expectedArgument != $arguments->getArgumentAtPosition($index)) {
+                    continue 2;
+                }
+            }
+            return $method;
+        }
+        throw new NotFoundException('No matching Method found');
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testListenForVerificationThrowsExceptionIfInvokationRuleIsInvalid()
-    {
-        $this->_mock->listenForVerification('foo');
-    }
-
 } 

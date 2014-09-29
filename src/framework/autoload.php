@@ -18,6 +18,7 @@ spl_autoload_register(
                 'mokka\\method\\invokation\\never' => '/method/invokation/Never.php',
                 'mokka\\method\\invokation\\once' => '/method/invokation/Once.php',
                 'mokka\\method\\method' => '/method/Method.php',
+                'mokka\\method\\methodcollection' => '/method/MethodCollection.php',
                 'mokka\\method\\mockedmethod' => '/method/MockedMethod.php',
                 'mokka\\method\\stubbedmethod' => '/method/StubbedMethod.php',
                 'mokka\\mock\\mock' => '/mock/Mock.php',

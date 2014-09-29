@@ -55,4 +55,9 @@ interface Method
      * @return string
      */
     public function getName();
+
+    /**
+     * @return ArgumentCollection
+     */
+    public function getArguments();
 } 
