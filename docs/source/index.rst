@@ -1,5 +1,5 @@
-Mokka PHP Mocking Framework Documentation
-=========================================
+Mokka PHP Mocking Framework
+===========================
 
 Index
 ^^^^^
@@ -9,12 +9,3 @@ Index
 
    mocking
    stubbing
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
