@@ -130,4 +130,11 @@ class MockTest extends MockTestCase
         unset($this->_mock);
     }
 
+    public function testStubbedMethodWithAnythingParameter()
+    {
+        $mock = Mokka::mock(SampleClass::class);
+        Mokka::when($mock)->setFoobar('foo', Mokka::anything())->thenReturn('bar');
+        $this->assertEquals('bar', $mock->setFoobar('foo', 'bar'));
+    }
+
 } 
