@@ -19,7 +19,7 @@ The huge drawback of this is that your IDE won't recognize this as a class name.
 Your mocks will break if you rename 'SampleClass' to something else with a refactoring tool.
 
 Using the Mock
-==============
+^^^^^^^^^^^^^^
 
 The created Mock implements all methods of the mocked class (plus a few internal methods needed for mocking and stubbing).
 All methods will return NULL when you call them. See :doc:`mocking` and :doc:`stubbing` for information on how to mock and stub those methods.
