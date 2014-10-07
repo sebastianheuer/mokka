@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../../source/stubbing.rst:46
 msgid "Throwing Exceptions"
-msgstr ""
+msgstr "Exceptions werfen"
 
 #: ../../source/stubbing.rst:48
 msgid "A stubbed method can throw an exception instead of returning a value:"
