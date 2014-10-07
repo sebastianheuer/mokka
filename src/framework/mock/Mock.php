@@ -40,6 +40,7 @@ use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Method\Invokation\Once;
 use Mokka\Method\MethodCollection;
 use Mokka\Method\MockedMethod;
+use Mokka\Method\StubbedExceptionMethod;
 use Mokka\Method\StubbedMethod;
 
 /**
@@ -114,6 +115,14 @@ trait Mock
             throw new \BadMethodCallException('Mock is not listening for a stubbed return value.');
         }
         $this->_addStubbedMethod(new StubbedMethod($this->_lastMethod, $this->_lastArgs, $returnValue));
+    }
+
+    public function thenThrow(\Exception $exception)
+    {
+        if (!$this->_listeningForStub) {
+            throw new \BadMethodCallException('Mock is not listening for a stubbed exception.');
+        }
+        $this->_addStubbedMethod(new StubbedExceptionMethod($this->_lastMethod, $this->_lastArgs, $exception));
     }
 
     /**

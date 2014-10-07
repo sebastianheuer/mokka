@@ -137,4 +137,14 @@ class MockTest extends MockTestCase
         $this->assertEquals('bar', $mock->setFoobar('foo', 'bar'));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubbedMethodThrowsException()
+    {
+        $mock = Mokka::mock(SampleClass::class);
+        Mokka::when($mock)->setBar()->thenThrow(new \InvalidArgumentException());
+        $mock->setBar();
+    }
+
 } 

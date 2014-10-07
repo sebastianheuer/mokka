@@ -21,9 +21,10 @@ msgid ""
 "have an Invokation Rule (like mocked methods), so if a stubbed method is not"
 " called, no exception is thrown."
 msgstr ""
-"Mit dem Stubben kann der Rückgabewert einer Methode vorgegeben werden."
-"Eine gestubbte Methode hat keine Invokation Rule (wie gemockte Methoden). "
-"Wird eine gestubbte Methode nicht aufgerufen, wird folglich keine Exception geworfen. "
+"Mit dem Stubben kann der Rückgabewert einer Methode vorgegeben werden.Eine "
+"gestubbte Methode hat keine Invokation Rule (wie gemockte Methoden). Wird "
+"eine gestubbte Methode nicht aufgerufen, wird folglich keine Exception "
+"geworfen. "
 
 #: ../../source/stubbing.rst:19
 msgid "You can also use the special AnythingArgument here:"
@@ -34,4 +35,13 @@ msgid ""
 "If you want to verify that a method gets called and also want to set a "
 "return value, you must add a mock and a stub:"
 msgstr ""
-"Um zusätzlich sicherzustellen, dass eine Methode aufgerufen wird, wird sie auch gemockt:"
+"Um zusätzlich sicherzustellen, dass eine Methode aufgerufen wird, wird sie "
+"auch gemockt:"
+
+#: ../../source/stubbing.rst:46
+msgid "Throwing Exceptions"
+msgstr ""
+
+#: ../../source/stubbing.rst:48
+msgid "A stubbed method can throw an exception instead of returning a value:"
+msgstr "Eine gestubbte Methode kann eine Exception werfen, anstatt einen Wert zurückzugeben:"

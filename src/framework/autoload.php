@@ -22,6 +22,7 @@ spl_autoload_register(
                 'mokka\\method\\method' => '/method/Method.php',
                 'mokka\\method\\methodcollection' => '/method/MethodCollection.php',
                 'mokka\\method\\mockedmethod' => '/method/MockedMethod.php',
+                'mokka\\method\\stubbedexceptionmethod' => '/method/StubbedExceptionMethod.php',
                 'mokka\\method\\stubbedmethod' => '/method/StubbedMethod.php',
                 'mokka\\mock\\mock' => '/mock/Mock.php',
                 'mokka\\mock\\mockinterface' => '/mock/MockInterface.php',

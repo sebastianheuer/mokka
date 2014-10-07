@@ -42,3 +42,15 @@ you must add a mock and a stub:
 
     echo $mock->getFoo('bar'); // => 'baz'
 
+Throwing Exceptions
+^^^^^^^^^^^^^^^^^^^
+
+A stubbed method can throw an exception instead of returning a value:
+
+.. code-block:: php
+
+    <?php
+    $mock = Mokka::mock(SampleClass::class);
+    Mokka::when($mock)->getFoo()->thenThrow(new \InvalidArgumentException());
+
+    $mock->getBar(); // => throws exception
