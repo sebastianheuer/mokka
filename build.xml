@@ -15,6 +15,12 @@
         </exec>
     </target>
 
+    <target name="sphinx-build">
+        <exec executable="sphinx-intl">
+            <arg line="build -d ${basedir}/docs/source"/>
+        </exec>
+    </target>
+
     <target name="autoloading">
         <exec executable="vendor/bin/phpab">
             <arg line='-o src/framework/autoload.php src/framework'/>

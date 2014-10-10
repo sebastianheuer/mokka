@@ -26,22 +26,32 @@ msgstr ""
 "eine gestubbte Methode nicht aufgerufen, wird folglich keine Exception "
 "geworfen. "
 
-#: ../../source/stubbing.rst:19
-msgid "You can also use the special AnythingArgument here:"
-msgstr "Auch hier kann das AnythingArgument verwendet werden:"
-
-#: ../../source/stubbing.rst:30
-msgid ""
-"If you want to verify that a method gets called and also want to set a "
-"return value, you must add a mock and a stub:"
-msgstr ""
-"Um zusätzlich sicherzustellen, dass eine Methode aufgerufen wird, wird sie "
-"auch gemockt:"
-
-#: ../../source/stubbing.rst:46
+#: ../../source/stubbing.rst:48
 msgid "Throwing Exceptions"
 msgstr "Exceptions werfen"
 
-#: ../../source/stubbing.rst:48
+#: ../../source/stubbing.rst:50
 msgid "A stubbed method can throw an exception instead of returning a value:"
-msgstr "Eine gestubbte Methode kann eine Exception werfen, anstatt einen Wert zurückzugeben:"
+msgstr ""
+"Eine gestubbte Methode kann eine Exception werfen, anstatt einen Wert "
+"zurückzugeben:"
+
+#: ../../source/stubbing.rst:19
+msgid ""
+"You can also use the special AnythingArgument introduced in :doc:`mocking` "
+"here:"
+msgstr ""
+"Hier kann auch das in :doc:`mocking` eingeführte AnythingArgument verwendert werden:"
+
+#: ../../source/stubbing.rst:31
+msgid "Combining Stubs and Mocks"
+msgstr "Stubs und Mocks kombinieren"
+
+#: ../../source/stubbing.rst:33
+msgid ""
+"You can combine mocks and stubs if you want to verify that a method gets "
+"called and also want to set a return value:"
+msgstr ""
+"Mocks und Stubs können kombiniert werden, um einen Rückgabewert zu setzen "
+"und zusätzlich sicherzustellen, dass die Methode aufgerufen wird:"
+

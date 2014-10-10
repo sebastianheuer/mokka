@@ -34,6 +34,9 @@ You can add multiple mocks for a single method with different arguments
     Mokka::verify($mock)->getBar('foo');
     Mokka::verify($mock)->getBar('bar');
 
+AnythingArgument
+^^^^^^^^^^^^^^^^
+
 There is also a special AnythingArgument, so you don't have to verify every single argument if it is not relevant for your test.
 
 .. code-block:: php

@@ -2,8 +2,8 @@ Stubbing
 ========
 
 Stubbing a method lets you define a return value.
-A stubbed method does not have an Invokation Rule (like mocked methods), so if a stubbed method is not called,
-no exception is thrown.
+A stubbed method does not have an Invokation Rule (like mocked methods),
+so if a stubbed method is not called, no exception is thrown.
 
 .. code-block:: php
 
@@ -16,7 +16,7 @@ no exception is thrown.
     echo $mock->getFoo(): // => NULL
     echo $mock->getFoo('bar'); // => 'baz'
 
-You can also use the special AnythingArgument here:
+You can also use the special AnythingArgument introduced in :doc:`mocking` here:
 
 .. code-block:: php
 
@@ -27,8 +27,10 @@ You can also use the special AnythingArgument here:
     echo $mock->getFoo('foo'): // => 'baz'
     echo $mock->getFoo('bar'); // => 'baz'
 
-If you want to verify that a method gets called and also want to set a return value,
-you must add a mock and a stub:
+Combining Stubs and Mocks
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can combine mocks and stubs if you want to verify that a method gets called and also want to set a return value:
 
 .. code-block:: php
 
