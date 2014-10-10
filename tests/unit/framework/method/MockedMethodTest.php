@@ -75,4 +75,11 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($method->call(new ArgumentCollection(array('foo'))));
     }
 
+    public function testGetIdentifierReturnsExpectedString()
+    {
+        $method = new MockedMethod('foo', new ArgumentCollection(array('foo')), new Any());
+        $expectedIdentifier = '691e456906864441ca48f76144b59794';
+        $this->assertSame($expectedIdentifier, $method->getIdentifier());
+    }
+
 } 

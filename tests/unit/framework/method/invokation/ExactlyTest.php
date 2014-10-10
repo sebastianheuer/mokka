@@ -30,7 +30,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
-namespace Mokka\Method\Invokation;
+namespace Mokka\Tests;
+use Mokka\Method\Invokation\AtLeast;
+use Mokka\Method\Invokation\Exactly;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -38,28 +40,38 @@ namespace Mokka\Method\Invokation;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class Once implements InvokationRule
+class ExactlyTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Determines if the given invokation count is valid for this InvokationRule
+     * @dataProvider invokationCountProvider
      *
+     * @param int $times
      * @param int $count
-     * @return boolean
+     * @param boolean $expectedResult
      */
-    public function isValidInvokationCount($count)
+    public function testIsValidInvokationCount($times, $count, $expectedResult)
     {
-        return $count === 1;
+        $invokation = new Exactly($times);
+        $this->assertSame($expectedResult, $invokation->isValidInvokationCount($count));
     }
 
-    /**
-     * Returns an error message
-     *
-     * @param int $actualCount
-     * @return string
-     */
-    public function getErrorMessage($actualCount)
+    public static function invokationCountProvider()
     {
-        return sprintf('Method should have been called once, but was called %d times', $actualCount);
+        return array(
+            array(1, 2, FALSE),
+            array(1, 1, TRUE),
+            array(1, 0, FALSE),
+            array(4, 99, FALSE),
+            array(3, 3, TRUE)
+        );
     }
 
-} 
+    public function testGetErrorMessage()
+    {
+        $rule = new Exactly(3);
+        $this->assertEquals(
+            'Method should have been called exactly 3 times, but was called 2 times',
+            $rule->getErrorMessage(2)
+        );
+    }
+}

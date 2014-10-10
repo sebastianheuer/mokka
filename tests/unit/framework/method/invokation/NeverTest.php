@@ -30,7 +30,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
-namespace Mokka\Method\Invokation;
+namespace Mokka\Tests;
+use Mokka\Method\Invokation\Never;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -38,28 +39,39 @@ namespace Mokka\Method\Invokation;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class Once implements InvokationRule
+class NeverTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Determines if the given invokation count is valid for this InvokationRule
+     * @dataProvider invokationCountProvider
      *
      * @param int $count
-     * @return boolean
+     * @param boolean $expectedResult
      */
-    public function isValidInvokationCount($count)
+    public function testIsValidInvokationCount($count, $expectedResult)
     {
-        return $count === 1;
+        $rule = new Never();
+        $this->assertSame($expectedResult, $rule->isValidInvokationCount($count));
     }
 
     /**
-     * Returns an error message
-     *
-     * @param int $actualCount
-     * @return string
+     * @return array
      */
-    public function getErrorMessage($actualCount)
+    public static function invokationCountProvider()
     {
-        return sprintf('Method should have been called once, but was called %d times', $actualCount);
+        return array(
+            array(0, TRUE),
+            array(1, FALSE),
+            array(-1, FALSE),
+            array(2, FALSE)
+        );
     }
 
-} 
+    public function testGetErrorMessage()
+    {
+        $rule = new Never();
+        $this->assertEquals(
+            'Method should NOT have been called, but was called 2 times',
+            $rule->getErrorMessage(2)
+        );
+    }
+}
