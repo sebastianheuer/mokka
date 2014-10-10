@@ -117,6 +117,9 @@ trait Mock
         $this->_addStubbedMethod(new StubbedMethod($this->_lastMethod, $this->_lastArgs, $returnValue));
     }
 
+    /**
+     * @param \Exception $exception
+     */
     public function thenThrow(\Exception $exception)
     {
         if (!$this->_listeningForStub) {

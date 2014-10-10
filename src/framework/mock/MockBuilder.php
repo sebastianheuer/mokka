@@ -30,16 +30,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  */
-namespace Mokka;
-
-use Mokka\Method\AnythingArgument;
-use Mokka\Method\Invokation\AtLeast;
-use Mokka\Method\Invokation\Exactly;
-use Mokka\Method\Invokation\InvokationRule;
-use Mokka\Method\Invokation\Never;
-use Mokka\Method\Invokation\Once;
-use Mokka\Mock\MockBuilder;
-use Mokka\Mock\MockInterface;
+namespace Mokka\Mock;
+use Mokka\ClassBuilder;
+use Mokka\FunctionBuilder;
+use Mokka\Token;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -47,97 +41,44 @@ use Mokka\Mock\MockInterface;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class Mokka
+class MockBuilder 
 {
     /**
-     * @var MockBuilder
-     */
-    private static $_mockBuilder;
-
-    /**
-     * Mock an object
+     * Create a mock object for the given class
      *
      * @param string $classname
      * @return \Mokka\Mock\MockInterface
      */
-    public static function mock($classname)
+    public function getMock($classname)
     {
-        return static::_getMockBuilder()->getMock($classname);
+        $mockClassname = self::_getMockClassname($classname);
+        $classDefinition = self::_getClass($mockClassname, $classname);
+        /* TODO this is probably the most evil line of code I have ever written.
+           Maybe there is a nicer way to dynamically create a class */
+        eval($classDefinition);
+        /** @var MockInterface $mock */
+        return new $mockClassname();
     }
 
     /**
-     * @param MockInterface $mock
-     * @return MockInterface
+     * @param string $originalClassname
+     * @return string
      */
-    public static function when(MockInterface $mock)
+    private function _getMockClassname($originalClassname)
     {
-        $mock->listenForStub();
-        return $mock;
+        $originalClassname = str_replace('\\', '_', $originalClassname);
+        return sprintf('Mokka_Mocked_%s_%s', $originalClassname, (string)new Token());
     }
 
     /**
-     * @param MockInterface $mock
-     * @param InvokationRule|NULL|int $expectedInvokationCount
-     * @throws \InvalidArgumentException
-     * @return MockInterface
+     * @param string $mockClassname
+     * @param string $classname
+     * @return string
      */
-    public static function verify(MockInterface $mock, $expectedInvokationCount = NULL)
+    private static function _getClass($mockClassname, $classname)
     {
-        $mock->listenForVerification($expectedInvokationCount);
-        return $mock;
-    }
-
-    /**
-     * @return MockBuilder
-     */
-    private static function _getMockBuilder()
-    {
-        if (NULL === static::$_mockBuilder) {
-            static::$_mockBuilder = new MockBuilder();
-        }
-        return static::$_mockBuilder;
-    }
-
-    /**
-     * @return Never
-     */
-    public static function never()
-    {
-        return new Never();
-    }
-
-    /**
-     * @return Once
-     */
-    public static function once()
-    {
-        return new Once();
-    }
-
-    /**
-     * @param int $count
-     * @return AtLeast
-     */
-    public static function atLeast($count)
-    {
-        return new AtLeast($count);
-    }
-
-    /**
-     * @param int $count
-     * @return Exactly
-     */
-    public static function exactly($count)
-    {
-        return new Exactly($count);
-    }
-
-    /**
-     * @return AnythingArgument
-     */
-    public static function anything()
-    {
-        return new AnythingArgument();
+        $builder = new ClassBuilder(new FunctionBuilder());
+        return $builder->build($mockClassname, $classname);
     }
 
 } 

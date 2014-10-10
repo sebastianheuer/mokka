@@ -25,6 +25,7 @@ spl_autoload_register(
                 'mokka\\method\\stubbedexceptionmethod' => '/method/StubbedExceptionMethod.php',
                 'mokka\\method\\stubbedmethod' => '/method/StubbedMethod.php',
                 'mokka\\mock\\mock' => '/mock/Mock.php',
+                'mokka\\mock\\mockbuilder' => '/mock/MockBuilder.php',
                 'mokka\\mock\\mockinterface' => '/mock/MockInterface.php',
                 'mokka\\mokka' => '/Mokka.php',
                 'mokka\\notfoundexception' => '/NotFoundException.php',
