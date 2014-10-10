@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Mokka" default="build" basedir=".">
+    <property environment="env"/>
+
+    <target name="tests">
+        <exec executable="vendor/bin/phpunit" failonerror="true"/>
+    </target>
+
+    <target name="sphinx-gettext">
+        <exec executable="make" failonerror="true">
+            <arg line='--directory ${basedir}/docs gettext'/>
+        </exec>
+        <exec executable="sphinx-intl">
+            <arg line='update -d ${basedir}/docs/source/locale -p ${basedir}/docs/build/locale'/>
+        </exec>
+    </target>
+
+    <target name="autoloading">
+        <exec executable="vendor/bin/phpab">
+            <arg line='-o src/framework/autoload.php src/framework'/>
+        </exec>
+        <exec executable="vendor/bin/phpab">
+            <arg line='-o tests/autoload.php tests'/>
+        </exec>
+    </target>
+
+</project>
