@@ -32,6 +32,12 @@
  */
 namespace Mokka\Tests;
 
+use Mokka\Method\AnythingArgument;
+use Mokka\Method\Invokation\AtLeast;
+use Mokka\Method\Invokation\Exactly;
+use Mokka\Method\Invokation\Never;
+use Mokka\Method\Invokation\Once;
+use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
 
 /**
@@ -74,4 +80,23 @@ class MokkaTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($mock, $this->_mokka->when($mock));
     }
 
+    /**
+     * Since Mokka::mock() is static, this tests relies on the
+     * correct function of the MockBuilder class
+     */
+    public function testMockReturnsExpectedMockObject()
+    {
+        $mock = Mokka::mock(ClassStub::class);
+        $this->assertInstanceOf(ClassStub::class, $mock);
+        $this->assertInstanceOf(MockInterface::class, $mock);
+    }
+
+    public function testInvocationProxyMethods()
+    {
+        $this->assertEquals(new Once(), Mokka::once());
+        $this->assertEquals(new AtLeast(3), Mokka::atLeast(3));
+        $this->assertEquals(new Exactly(2), Mokka::exactly(2));
+        $this->assertEquals(new AnythingArgument(), Mokka::anything());
+        $this->assertEquals(new Never(), Mokka::never());
+    }
 }
