@@ -7,6 +7,10 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'mokka\\tests\\anytest' => '/unit/framework/method/invokation/AnyTest.php',
+                'mokka\\tests\\anythingargumenttest' => '/unit/framework/method/argument/AnythingArgumentTest.php',
+                'mokka\\tests\\argumentcollectiontest' => '/unit/framework/method/argument/ArgumentCollectionTest.php',
+                'mokka\\tests\\atleasttest' => '/unit/framework/method/invokation/AtLeastTest.php',
                 'mokka\\tests\\classstub' => '/unit/framework/ClassStub.php',
                 'mokka\\tests\\integration\\fixtures\\foo' => '/integration/mock/fixtures/Foo.php',
                 'mokka\\tests\\integration\\fixtures\\foointerface' => '/integration/mock/fixtures/FooInterface.php',
@@ -14,10 +18,13 @@ spl_autoload_register(
                 'mokka\\tests\\integration\\mocktest' => '/integration/mock/MockTest.php',
                 'mokka\\tests\\integration\\mocktestcase' => '/integration/mock/MockTestCase.php',
                 'mokka\\tests\\integration\\mockverificationtest' => '/integration/mock/MockVerificationTest.php',
+                'mokka\\tests\\methodcollectiontest' => '/unit/framework/method/MethodCollectionTest.php',
+                'mokka\\tests\\methodmock' => '/unit/framework/method/MethodMock.php',
                 'mokka\\tests\\mockedmethodtest' => '/unit/framework/method/MockedMethodTest.php',
                 'mokka\\tests\\mockstub' => '/unit/framework/mock/MockStub.php',
                 'mokka\\tests\\mocktest' => '/unit/framework/mock/MockTest.php',
                 'mokka\\tests\\mokkatest' => '/unit/framework/MokkaTest.php',
+                'mokka\\tests\\stubbedexceptionmethodtest' => '/unit/framework/method/StubbedExceptionMethodTest.php',
                 'mokka\\tests\\stubbedmethodtest' => '/unit/framework/method/StubbedMethodTest.php',
                 'mokka\\tests\\tokentest' => '/unit/framework/TokenTest.php'
             );
