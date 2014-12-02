@@ -42,7 +42,7 @@ use Mokka\Mokka;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MokkaTestCase extends \PHPUnit_Framework_TestCase
+abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param string $classname
@@ -102,7 +102,7 @@ class MokkaTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $count
+     * @param int $count
      * @return \Mokka\Method\Invokation\AtLeast
      */
     public static function atLeast($count)
