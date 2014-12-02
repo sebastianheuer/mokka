@@ -86,9 +86,9 @@ class MokkaTest extends \PHPUnit_Framework_TestCase
      */
     public function testMockReturnsExpectedMockObject()
     {
-        $mock = Mokka::mock(ClassStub::class);
-        $this->assertInstanceOf(ClassStub::class, $mock);
-        $this->assertInstanceOf(MockInterface::class, $mock);
+        $mock = Mokka::mock('\Mokka\Tests\ClassStub');
+        $this->assertInstanceOf('\Mokka\Tests\ClassStub', $mock);
+        $this->assertInstanceOf('\Mokka\Mock\MockInterface', $mock);
     }
 
     public function testInvocationProxyMethods()

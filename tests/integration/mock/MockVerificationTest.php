@@ -51,27 +51,27 @@ class MockVerificationTest extends MockTestCase
      */
     public function testThrowsExceptionIfVerificationIsNotMet()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock)->setBar();
     }
 
     public function testDoesNotThrowExeptionIfVerifiedMethodWasCalled()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock)->setBar();
         $this->assertNull($mock->setBar());
     }
 
     public function testVerifiesIfParamIsNull()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock)->setFoobar('foo', NULL);
         $this->assertNull($mock->setFoobar('foo', NULL));
     }
 
     public function testVerifiesMethodWithAnythingParam()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock)->setFoobar(Mokka::anything(), 'foo');
         $this->assertNull($mock->setFoobar('bar', 'foo'));
     }
@@ -82,7 +82,7 @@ class MockVerificationTest extends MockTestCase
      */
     public function testThrowsExceptionIfExpectedInvokationCountIsNotMet()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock, new Exactly(3))->setBar();
         $mock->setBar();
         $mock->setBar();
@@ -93,7 +93,7 @@ class MockVerificationTest extends MockTestCase
      */
     public function testVerifiesThatMethodWasNotCalled()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::verify($mock, new Never())->setBar();
         $mock->setBar();
     }

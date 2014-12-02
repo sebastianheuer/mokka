@@ -32,8 +32,8 @@
  */
 namespace Mokka\Tests\Integration;
 
+use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
-use Mokka\Tests\Integration\Fixtures\Foo;
 use Mokka\Tests\Integration\Fixtures\FooInterface;
 use Mokka\Tests\Integration\Fixtures\SampleClass;
 
@@ -46,13 +46,13 @@ use Mokka\Tests\Integration\Fixtures\SampleClass;
 class MockTest extends MockTestCase
 {
     /**
-     * @var SampleClass
+     * @var SampleClass|MockInterface
      */
     private $_mock;
 
     public function setUp()
     {
-        $this->_mock = Mokka::mock(SampleClass::class);
+        $this->_mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
     }
 
     /**
@@ -92,7 +92,7 @@ class MockTest extends MockTestCase
     {
         $mockedMethod = new \ReflectionMethod($this->_mock, 'setFoo');
         $this->assertEquals(1, $mockedMethod->getNumberOfParameters());
-        $this->assertParameterHasType($mockedMethod, 'foo', Foo::class);
+        $this->assertParameterHasType($mockedMethod, 'foo', 'Mokka\Tests\Integration\Fixtures\Foo');
     }
 
     /**
@@ -109,7 +109,8 @@ class MockTest extends MockTestCase
 
     public function testMocksInterface()
     {
-        $mock = Mokka::mock(FooInterface::class);
+        /** @var FooInterface|MockInterface $mock */
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\FooInterface');
         $this->assertNull($mock->getFoo());
     }
 
@@ -132,7 +133,7 @@ class MockTest extends MockTestCase
 
     public function testStubbedMethodWithAnythingParameter()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::when($mock)->setFoobar('foo', Mokka::anything())->thenReturn('bar');
         $this->assertEquals('bar', $mock->setFoobar('foo', 'bar'));
     }
@@ -142,7 +143,7 @@ class MockTest extends MockTestCase
      */
     public function testSubbedMethodThrowsException()
     {
-        $mock = Mokka::mock(SampleClass::class);
+        $mock = Mokka::mock('\Mokka\Tests\Integration\Fixtures\SampleClass');
         Mokka::when($mock)->setBar()->thenThrow(new \InvalidArgumentException());
         $mock->setBar();
     }
