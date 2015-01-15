@@ -30,8 +30,10 @@ class FunctionBuilder
                     } else {
                         $default = sprintf("='%s'", $parameter->getDefaultValue());
                     }
+                } elseif ($parameter->isOptional()) {
+                    // Workaround for optional parameters of internal methods
+                    $default = '= NULL';
                 }
-
                 $arguments .= sprintf('%s $%s %s ,', $type, $parameter->getName(), $default);
             }
             $arguments = rtrim($arguments, ',');
