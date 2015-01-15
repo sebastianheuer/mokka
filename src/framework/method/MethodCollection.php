@@ -69,7 +69,7 @@ class MethodCollection
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
             {
                 if (!$expectedArgument->matches($arguments->getArgumentAtPosition($index))) {
-                    return FALSE;
+                    continue 2;
                 }
             }
             return TRUE;
