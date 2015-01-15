@@ -38,6 +38,9 @@ class ClassBuilder
             if ($method->getName() == 'echo' || $method->getName() == 'eval') {
                 continue;
             }
+            if ($method->isFinal() || $method->isStatic()) {
+                continue;
+            }
             $functions[] = $this->_functionBuilder->build($method);
         }
         $classDefinition = str_replace('%functions%', implode("\n", $functions), $classDefinition);
