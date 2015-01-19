@@ -31,6 +31,8 @@
  *
  */
 namespace Mokka;
+use Exception;
+use Mokka\Method\Method;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -40,5 +42,25 @@ namespace Mokka;
  */
 class VerificationException extends \Exception
 {
+    /**
+     * @param Method $method
+     * @param string $message
+     * @param int $code
+     * @param Exception $previous
+     */
+    public function __construct(Method $method, $message, $code = 0, Exception $previous = null)
+    {
+        parent::__construct($this->_getMessage($method, $message), $code, $previous);
+    }
+
+    /**
+     * @param Method $method
+     * @param string $message
+     * @return string
+     */
+    private function _getMessage(Method $method, $message)
+    {
+        return sprintf('Verification failed for Method %s: %s', $method->getName(), $message);
+    }
 
 } 

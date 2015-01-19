@@ -87,13 +87,19 @@ class MockedMethod implements Method
         foreach ($this->_expectedArgs->getArguments() as $index => $expectedArgument) {
             if (!$actualArgs->hasArgumentAtPosition($index)) {
                 throw new VerificationException(
-                    sprintf('Argument %s should be %s, is missing', $i, $expectedArgument->getValue())
+                    $this, sprintf('Argument %s should be %s, is missing', $i, $expectedArgument->getValue())
                 );
             }
             $actualArgument = $actualArgs->getArgumentAtPosition($i);
             if (!$expectedArgument->matches($actualArgument)) {
                 throw new VerificationException(
-                    sprintf('Argument %s should be %s, is %s', $i, $expectedArgument->getValue(), $actualArgument->getValue())
+                    $this,
+                    sprintf(
+                        'Argument %s should be %s, is %s',
+                        $i,
+                        $expectedArgument->getValue(),
+                        $actualArgument->getValue()
+                    )
                 );
             }
             $i++;
@@ -107,7 +113,7 @@ class MockedMethod implements Method
     public function __destruct()
     {
         if (!$this->_invokationRule->isValidInvokationCount($this->_invokationCounter)) {
-            throw new VerificationException($this->_invokationRule->getErrorMessage($this->_invokationCounter));
+            throw new VerificationException($this, $this->_invokationRule->getErrorMessage($this->_invokationCounter));
         }
     }
 
