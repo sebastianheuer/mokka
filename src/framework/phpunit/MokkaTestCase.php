@@ -45,12 +45,19 @@ use Mokka\Mokka;
 abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var MockInterface[]
+     */
+    private $_mocks = array();
+
+    /**
      * @param string $classname
      * @return \Mokka\Mock\Mock
      */
     public function mock($classname)
     {
-        return Mokka::mock($classname);
+        $mock = Mokka::mock($classname);
+        $this->_mocks[] = $mock;
+        return $mock;
     }
 
     /**
@@ -117,5 +124,18 @@ abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
     {
         return Mokka::anything();
     }
+
+    /**
+     *
+     */
+    protected function verifyMockObjects()
+    {
+        parent::verifyMockObjects();
+        foreach ($this->_mocks as $mock) {
+            // verification is handled in __destruct(), so we will just make sure this gets called early enough
+            unset($mock);
+        }
+    }
+
 
 } 
