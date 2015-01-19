@@ -12,6 +12,7 @@ spl_autoload_register(
                 'mokka\\tests\\argumentcollectiontest' => '/unit/framework/method/argument/ArgumentCollectionTest.php',
                 'mokka\\tests\\atleasttest' => '/unit/framework/method/invokation/AtLeastTest.php',
                 'mokka\\tests\\classstub' => '/unit/framework/ClassStub.php',
+                'mokka\\tests\\exactlytest' => '/unit/framework/method/invokation/ExactlyTest.php',
                 'mokka\\tests\\integration\\fixtures\\foo' => '/integration/mock/fixtures/Foo.php',
                 'mokka\\tests\\integration\\fixtures\\foointerface' => '/integration/mock/fixtures/FooInterface.php',
                 'mokka\\tests\\integration\\fixtures\\sampleclass' => '/integration/mock/fixtures/SampleClass.php',
@@ -24,8 +25,12 @@ spl_autoload_register(
                 'mokka\\tests\\mockstub' => '/unit/framework/mock/MockStub.php',
                 'mokka\\tests\\mocktest' => '/unit/framework/mock/MockTest.php',
                 'mokka\\tests\\mokkatest' => '/unit/framework/MokkaTest.php',
+                'mokka\\tests\\nevertest' => '/unit/framework/method/invokation/NeverTest.php',
+                'mokka\\tests\\objectcomparatortest' => '/unit/framework/comparator/ObjectComparatorTest.php',
+                'mokka\\tests\\oncetest' => '/unit/framework/method/invokation/OnceTest.php',
                 'mokka\\tests\\stubbedexceptionmethodtest' => '/unit/framework/method/StubbedExceptionMethodTest.php',
                 'mokka\\tests\\stubbedmethodtest' => '/unit/framework/method/StubbedMethodTest.php',
+                'mokka\\tests\\testclass' => '/unit/framework/method/argument/fixtures/TestClass.php',
                 'mokka\\tests\\tokentest' => '/unit/framework/TokenTest.php'
             );
         }

@@ -31,6 +31,7 @@
  *
  */
 namespace Mokka\Method;
+use Mokka\Comparator\ArgumentComparator;
 use Mokka\NotFoundException;
 
 /**
@@ -42,6 +43,11 @@ use Mokka\NotFoundException;
 class MethodCollection implements \Countable
 {
     /**
+     * @var ArgumentComparator
+     */
+    private $_argumentComparator;
+
+    /**
      * @var Method[]
      */
     private $_methods = array();
@@ -50,6 +56,14 @@ class MethodCollection implements \Countable
      * @var bool
      */
     private $_hasBeenVerified = false;
+
+    /**
+     * @param ArgumentComparator $argumentComparator
+     */
+    public function __construct(ArgumentComparator $argumentComparator)
+    {
+        $this->_argumentComparator = $argumentComparator;
+    }
 
     /**
      * @param Method $method
@@ -74,7 +88,9 @@ class MethodCollection implements \Countable
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
             {
-                if (!$expectedArgument->matches($arguments->getArgumentAtPosition($index))) {
+                if (!$this->_argumentComparator->isEqual(
+                    $expectedArgument, $arguments->getArgumentAtPosition($index))
+                ) {
                     continue 2;
                 }
             }
@@ -98,7 +114,9 @@ class MethodCollection implements \Countable
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
             {
-                if (!$expectedArgument->matches($arguments->getArgumentAtPosition($index))) {
+                if (!$this->_argumentComparator->isEqual(
+                    $expectedArgument, $arguments->getArgumentAtPosition($index))
+                ) {
                     continue 2;
                 }
             }

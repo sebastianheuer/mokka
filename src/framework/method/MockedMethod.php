@@ -32,6 +32,8 @@
  */
 namespace Mokka\Method;
 
+use Mokka\Comparator\ArgumentComparator;
+use Mokka\Comparator\ComparatorLocator;
 use Mokka\Method\Invokation\InvokationRule;
 use Mokka\VerificationException;
 
@@ -64,6 +66,11 @@ class MockedMethod implements Method
     private $_name = '';
 
     /**
+     * @var ArgumentComparator
+     */
+    private $_argumentComparator;
+
+    /**
      * @param string $name
      * @param ArgumentCollection $expectedArgs
      * @param Invokation\InvokationRule $expectedInvokationCount
@@ -73,6 +80,7 @@ class MockedMethod implements Method
         $this->_name = $name;
         $this->_expectedArgs = $expectedArgs;
         $this->_invokationRule = $expectedInvokationCount;
+        $this->_argumentComparator = new ArgumentComparator(new ComparatorLocator());
     }
 
     /**
@@ -91,7 +99,7 @@ class MockedMethod implements Method
                 );
             }
             $actualArgument = $actualArgs->getArgumentAtPosition($i);
-            if (!$expectedArgument->matches($actualArgument)) {
+            if (!$this->_argumentComparator->isEqual($expectedArgument, $actualArgument)) {
                 throw new VerificationException(
                     $this,
                     sprintf(

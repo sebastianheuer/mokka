@@ -32,6 +32,8 @@
  */
 namespace Mokka\Tests;
 
+use Mokka\Comparator\ArgumentComparator;
+use Mokka\Comparator\ComparatorLocator;
 use Mokka\Method\ArgumentCollection;
 use Mokka\Method\Invokation\Once;
 use Mokka\Method\MethodCollection;
@@ -62,7 +64,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->listenForStub();
         $this->_mock->doFoo();
         $this->_mock->thenReturn('someValue');
-        $expected = new MethodCollection();
+        $expected = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         $expected->addMethod(new StubbedMethod('doFoo', new ArgumentCollection(), 'someValue'));
         $this->assertAttributeEquals($expected, '_stubs', $this->_mock);
     }
@@ -73,7 +75,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->_mock->doFoo();
 
         $expectedMethod = new MockedMethod('doFoo', new ArgumentCollection(), new Once());
-        $expected = new MethodCollection();
+        $expected = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         $expected->addMethod($expectedMethod);
         $this->assertAttributeEquals($expected, '_methods', $this->_mock);
 

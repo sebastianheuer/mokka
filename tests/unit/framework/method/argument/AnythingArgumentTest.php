@@ -43,30 +43,6 @@ use Mokka\Method\ArgumentInterface;
  */
 class AnythingArgumentTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @dataProvider argumentProvider
-     *
-     * @param ArgumentInterface $argumentToCompare
-     */
-    public function testMatchesAlwaysReturnsTrue(ArgumentInterface $argumentToCompare)
-    {
-        $argument = new AnythingArgument();
-        $this->assertTrue($argument->matches($argumentToCompare));
-    }
-
-    /**
-     * @return array
-     */
-    public static function argumentProvider()
-    {
-        return array(
-            array(new Argument('foo')),
-            array(new Argument('bar')),
-            array(new Argument(NULL)),
-            array(new Argument(array())),
-        );
-    }
-
     public function testGetValueReturnsNull()
     {
         $argument = new AnythingArgument();

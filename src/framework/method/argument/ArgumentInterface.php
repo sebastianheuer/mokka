@@ -41,12 +41,6 @@ namespace Mokka\Method;
 interface ArgumentInterface 
 {
     /**
-     * @param ArgumentInterface $argument
-     * @return boolean
-     */
-    public function matches(ArgumentInterface $argument);
-
-    /**
      * @return mixed
      */
     public function getValue();

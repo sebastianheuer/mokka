@@ -32,6 +32,8 @@
  */
 namespace Mokka\Mock;
 
+use Mokka\Comparator\ArgumentComparator;
+use Mokka\Comparator\ComparatorLocator;
 use Mokka\Method\AnythingArgument;
 use Mokka\Method\Argument;
 use Mokka\Method\ArgumentCollection;
@@ -196,7 +198,7 @@ trait Mock
     private function __mokka_getMethods()
     {
         if (NULL === $this->_methods) {
-            $this->_methods = new MethodCollection();
+            $this->_methods = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         }
         return $this->_methods;
     }
@@ -207,7 +209,7 @@ trait Mock
     private function __mokka_getStubs()
     {
         if (NULL === $this->_stubs) {
-            $this->_stubs = new MethodCollection();
+            $this->_stubs = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         }
         return $this->_stubs;
     }

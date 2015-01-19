@@ -8,6 +8,12 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'mokka\\classbuilder' => '/builder/ClassBuilder.php',
+                'mokka\\comparator\\argumentcomparator' => '/comparator/ArgumentComparator.php',
+                'mokka\\comparator\\comparatorinterface' => '/comparator/ComparatorInterface.php',
+                'mokka\\comparator\\comparatorlocator' => '/comparator/ComparatorLocator.php',
+                'mokka\\comparator\\defaultcomparator' => '/comparator/DefaultComparator.php',
+                'mokka\\comparator\\domnodecomparator' => '/comparator/DomNodeComparator.php',
+                'mokka\\comparator\\objectcomparator' => '/comparator/ObjectComparator.php',
                 'mokka\\functionbuilder' => '/builder/FunctionBuilder.php',
                 'mokka\\method\\anythingargument' => '/method/argument/AnythingArgument.php',
                 'mokka\\method\\argument' => '/method/argument/Argument.php',
@@ -29,7 +35,8 @@ spl_autoload_register(
                 'mokka\\mock\\mockinterface' => '/mock/MockInterface.php',
                 'mokka\\mokka' => '/Mokka.php',
                 'mokka\\notfoundexception' => '/NotFoundException.php',
-                'mokka\\phpunit\\mokkatestcase' => '/phpunit/PHPUnitMokkaTestCase.php',
+                'mokka\\phpunit\\mokkatestcase' => '/phpunit/MokkaTestCase.php',
+                'mokka\\phpunit\\testlistener' => '/phpunit/TestListener.php',
                 'mokka\\token' => '/Token.php',
                 'mokka\\verificationexception' => '/VerificationException.php'
             );

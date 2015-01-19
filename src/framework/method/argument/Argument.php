@@ -62,13 +62,4 @@ class Argument implements ArgumentInterface
         return $this->_value;
     }
 
-    /**
-     * @param ArgumentInterface $argument
-     * @return bool
-     */
-    public function matches(ArgumentInterface $argument)
-    {
-        return $this->getValue() == $argument->getValue();
-    }
-
 } 

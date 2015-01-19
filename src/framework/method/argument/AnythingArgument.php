@@ -41,15 +41,6 @@ namespace Mokka\Method;
 class AnythingArgument implements ArgumentInterface
 {
     /**
-     * @param ArgumentInterface $argument
-     * @return bool
-     */
-    public function matches(ArgumentInterface $argument)
-    {
-        return TRUE;
-    }
-
-    /**
      * AnythingArguments do not have a value
      *
      * @return NULL

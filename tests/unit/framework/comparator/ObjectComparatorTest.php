@@ -31,9 +31,8 @@
  *
  */
 namespace Mokka\Tests;
-use Mokka\Comparator\ArgumentComparator;
+use Mokka\Comparator\ObjectComparator;
 use Mokka\Comparator\ComparatorLocator;
-use Mokka\Method\MethodCollection;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -41,24 +40,56 @@ use Mokka\Method\MethodCollection;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MethodCollectionTest extends \PHPUnit_Framework_TestCase
+class ObjectComparatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var MethodCollection
+     * @dataProvider equalObjectsProvider
+     *
+     * @param $object1
+     * @param $object2
      */
-    private $_collection;
-
-    public function setUp()
+    public function testIsEqualReturnsTrueForEqualObjects($object1, $object2)
     {
-        $this->_collection = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
+        $comparator = new ObjectComparator(new ComparatorLocator());
+        $this->assertTrue($comparator->isEqual($object1, $object2));
     }
 
-    public function testAddMethod()
+    public function equalObjectsProvider()
     {
-        $this->assertAttributeEmpty('_methods', $this->_collection);
-        $method = new MethodMock();
-        $this->_collection->addMethod($method);
-        $this->assertAttributeEquals(array($method), '_methods', $this->_collection);
+        return array(
+            array(new \StdClass(), new \StdClass()),
+            array(new TestClass(), new TestClass()),
+            array(new TestClass('foo'), new TestClass('foo')),
+            array(new TestClass(new \StdClass()), new TestClass(new \StdClass)),
+            array(new TestClass(new TestClass('foo')), new TestClass(new TestClass('foo')))
+        );
+    }
+
+    /**
+     * @dataProvider unequalObjectsProvider
+     *
+     * @param $object1
+     * @param $object2
+     */
+    public function testIsEqualReturnsFalseForUnequalObjects($object1, $object2)
+    {
+        $comparator = new ObjectComparator(new ComparatorLocator());
+        $this->assertFalse($comparator->isEqual($object1, $object2));
+    }
+
+    public function unequalObjectsProvider()
+    {
+        $dom = new \DOMDocument();
+        $element1 = $dom->createElement('foo', 'bar');
+        $element2 = $dom->createElement('foo', 'baz');
+
+        return array(
+            array(new \StdClass(), new TestClass()),
+            array(new TestClass('foo'), new TestClass('bar')),
+            array(new TestClass(new \StdClass()), new TestClass(new TestClass())),
+            array(new TestClass(new TestClass('foo')), new TestClass(new TestClass('bar'))),
+            array(new TestClass($element1), new TestClass($element2))
+        );
     }
 
 
