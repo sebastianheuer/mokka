@@ -39,7 +39,7 @@ use Mokka\NotFoundException;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MethodCollection 
+class MethodCollection implements \Countable
 {
     /**
      * @var Method[]
@@ -47,11 +47,17 @@ class MethodCollection
     private $_methods = array();
 
     /**
+     * @var bool
+     */
+    private $_hasBeenVerified = false;
+
+    /**
      * @param Method $method
      */
     public function addMethod(Method $method)
     {
         $this->_methods[] = $method;
+        $this->_hasBeenVerified = false;
     }
 
     /**
@@ -99,5 +105,36 @@ class MethodCollection
             return $method;
         }
         throw new NotFoundException('No matching Method found');
+    }
+
+    /**
+     *
+     *
+     * @throws \Mokka\VerificationException
+     */
+    public function verify()
+    {
+        $this->_hasBeenVerified = true;
+        foreach ($this->_methods as $method) {
+            if ($method instanceof MockedMethod) {
+                $method->verify();
+            }
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->_methods);
+    }
+
+
+    public function __destruct()
+    {
+        if (!$this->_hasBeenVerified) {
+            $this->verify();
+        }
     }
 } 

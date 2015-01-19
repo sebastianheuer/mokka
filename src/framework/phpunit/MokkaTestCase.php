@@ -35,6 +35,7 @@ namespace Mokka\PHPUnit;
 use Mokka\Method\Invokation\InvokationRule;
 use Mokka\Mock\MockInterface;
 use Mokka\Mokka;
+use Mokka\VerificationException;
 
 /**
  * @author     Sebastian Heuer <belanur@gmail.com>
@@ -76,10 +77,6 @@ abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
      */
     public function verify(MockInterface $mock, $expectedInvokationCount = NULL)
     {
-        /* Workaround for PHPUnit Warning "This test did not perform any assertions".
-         * A verification on a mock object is some kind of assertion
-         */
-        $this->assertTrue(TRUE);
         return Mokka::verify($mock, $expectedInvokationCount);
     }
 
@@ -130,10 +127,25 @@ abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function verifyMockObjects()
     {
-        parent::verifyMockObjects();
         foreach ($this->_mocks as $mock) {
-            // verification is handled in __destruct(), so we will just make sure this gets called early enough
-            unset($mock);
+            $this->addToAssertionCount($mock->getVerificationCount());
+            $mock->verifyMockedMethods();
+        }
+        parent::verifyMockObjects();
+    }
+
+    /**
+     * Converts Mokka's VerificationException to PHPUnit's AssertionFailedError
+     *
+     * @param \Exception $e
+     */
+    protected function onNotSuccessfulTest(\Exception $e)
+    {
+        if ($e instanceof VerificationException) {
+            $assertionFailedError = new \PHPUnit_Framework_AssertionFailedError($e->getMessage(), $e->getCode(), $e);
+            parent::onNotSuccessfulTest($assertionFailedError);
+        } else {
+            parent::onNotSuccessfulTest($e);
         }
     }
 

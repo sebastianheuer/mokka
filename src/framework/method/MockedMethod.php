@@ -107,10 +107,7 @@ class MockedMethod implements Method
         return NULL;
     }
 
-    /**
-     *
-     */
-    public function __destruct()
+    public function verify()
     {
         if (!$this->_invokationRule->isValidInvokationCount($this->_invokationCounter)) {
             throw new VerificationException($this, $this->_invokationRule->getErrorMessage($this->_invokationCounter));

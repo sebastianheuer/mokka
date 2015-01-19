@@ -210,6 +210,21 @@ trait Mock
             $this->_stubs = new MethodCollection();
         }
         return $this->_stubs;
-    }    
-    
+    }
+
+    /**
+     *
+     */
+    public function verifyMockedMethods()
+    {
+        $this->_methods->verify();
+    }
+
+    /**
+     * @return int
+     */
+    public function getVerificationCount()
+    {
+        return count($this->_methods);
+    }
 }

@@ -53,6 +53,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
         $arguments = new ArgumentCollection(array('foo'));
         $method = new MockedMethod('foo', $arguments, new Any());
         $method->call(new ArgumentCollection());
+        $method->verify();
     }
 
     /**
@@ -64,6 +65,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
         $arguments->addArgument(new Argument('foo'));
         $method = new MockedMethod('foo', $arguments, new Any());
         $method->call(new ArgumentCollection(array('bar')));
+        $method->verify();
     }
 
     /**
@@ -73,6 +75,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
     {
         $method = new MockedMethod('foo', new ArgumentCollection(array('foo')), new Any());
         $this->assertNull($method->call(new ArgumentCollection(array('foo'))));
+        $method->verify();
     }
 
     public function testGetIdentifierReturnsExpectedString()
@@ -80,6 +83,7 @@ class MockedMethodTest extends \PHPUnit_Framework_TestCase
         $method = new MockedMethod('foo', new ArgumentCollection(array('foo')), new Any());
         $expectedIdentifier = '691e456906864441ca48f76144b59794';
         $this->assertSame($expectedIdentifier, $method->getIdentifier());
+        $method->verify();
     }
 
 } 

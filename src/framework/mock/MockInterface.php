@@ -56,4 +56,14 @@ interface MockInterface
      * @param int|NULL|InvokationRule $expectedInvokationCount
      */
     public function listenForVerification($expectedInvokationCount);
+
+    /**
+     *
+     */
+    public function verifyMockedMethods();
+
+    /**
+     * @return int
+     */
+    public function getVerificationCount();
 } 
