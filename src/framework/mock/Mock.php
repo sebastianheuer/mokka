@@ -219,7 +219,7 @@ trait Mock
      */
     public function verifyMockedMethods()
     {
-        $this->_methods->verify();
+        $this->__mokka_getMethods()->verify();
     }
 
     /**
