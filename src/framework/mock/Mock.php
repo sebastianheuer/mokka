@@ -89,18 +89,18 @@ trait Mock
     /**
      * @param MockedMethod $method
      */
-    private function _addMockedMethod(MockedMethod $method)
+    private function __mokka_addMockedMethod(MockedMethod $method)
     {
-        $this->_getMethods()->addMethod($method);
+        $this->__mokka_getMethods()->addMethod($method);
         $this->_listeningForVerification = FALSE;
     }
 
     /**
      * @param StubbedMethod $method
      */
-    private function _addStubbedMethod(StubbedMethod $method)
+    private function __mokka_addStubbedMethod(StubbedMethod $method)
     {
-        $this->_getStubs()->addMethod($method);
+        $this->__mokka_getStubs()->addMethod($method);
         $this->_lastMethod = NULL;
         $this->_listeningForStub = FALSE;
     }
@@ -114,7 +114,7 @@ trait Mock
         if (!$this->_listeningForStub) {
             throw new \BadMethodCallException('Mock is not listening for a stubbed return value.');
         }
-        $this->_addStubbedMethod(new StubbedMethod($this->_lastMethod, $this->_lastArgs, $returnValue));
+        $this->__mokka_addStubbedMethod(new StubbedMethod($this->_lastMethod, $this->_lastArgs, $returnValue));
     }
 
     /**
@@ -125,7 +125,7 @@ trait Mock
         if (!$this->_listeningForStub) {
             throw new \BadMethodCallException('Mock is not listening for a stubbed exception.');
         }
-        $this->_addStubbedMethod(new StubbedExceptionMethod($this->_lastMethod, $this->_lastArgs, $exception));
+        $this->__mokka_addStubbedMethod(new StubbedExceptionMethod($this->_lastMethod, $this->_lastArgs, $exception));
     }
 
     /**
@@ -174,17 +174,17 @@ trait Mock
             $this->_lastMethod = $methodName;
             $this->_lastArgs = $arguments;
             if ($this->_listeningForVerification) {
-                $this->_addMockedMethod(new MockedMethod($methodName, $arguments, $this->_invokationRule));
+                $this->__mokka_addMockedMethod(new MockedMethod($methodName, $arguments, $this->_invokationRule));
             }
             return $this;
         }
 
-        if ($this->_getMethods()->hasMethod($methodName, $arguments)) {
-            $this->_getMethods()->getMethod($methodName, $arguments)->call($arguments);
+        if ($this->__mokka_getMethods()->hasMethod($methodName, $arguments)) {
+            $this->__mokka_getMethods()->getMethod($methodName, $arguments)->call($arguments);
         }
         
-        if ($this->_getStubs()->hasMethod($methodName, $arguments)) {
-            return $this->_getStubs()->getMethod($methodName, $arguments)->call($arguments);
+        if ($this->__mokka_getStubs()->hasMethod($methodName, $arguments)) {
+            return $this->__mokka_getStubs()->getMethod($methodName, $arguments)->call($arguments);
         }
 
         return NULL;
@@ -193,7 +193,7 @@ trait Mock
     /**
      * @return MethodCollection
      */
-    private function _getMethods()
+    private function __mokka_getMethods()
     {
         if (NULL === $this->_methods) {
             $this->_methods = new MethodCollection();
@@ -204,7 +204,7 @@ trait Mock
     /**
      * @return MethodCollection
      */
-    private function _getStubs()
+    private function __mokka_getStubs()
     {
         if (NULL === $this->_stubs) {
             $this->_stubs = new MethodCollection();
