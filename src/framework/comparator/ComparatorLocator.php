@@ -12,7 +12,7 @@ class ComparatorLocator
     public function getComparatorFor($valueA, $valueB)
     {
         if ($valueA instanceof \DOMNode && $valueB instanceof \DOMNode) {
-            return new DOMNodeComparator();
+            return new DomNodeComparator();
         }
         if (is_object($valueA) && is_object($valueB)) {
             return new ObjectComparator($this);
