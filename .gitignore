@@ -1,4 +1,5 @@
 /build/logs
+/build/coverage
 /vendor/
 composer.lock
 phpunit.xml
