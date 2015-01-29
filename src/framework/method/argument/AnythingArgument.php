@@ -45,7 +45,7 @@ class AnythingArgument implements ArgumentInterface
      *
      * @return NULL
      */
-    public function getValue()
+    public function __mokka_getValue()
     {
         return NULL;
     }

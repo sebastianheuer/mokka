@@ -1,17 +1,17 @@
 <?php
 namespace Mokka;
 
-class ClassBuilder 
+class ClassDefinitionBuilder
 {
     /**
-     * @var FunctionBuilder
+     * @var FunctionDefinitionBuilder
      */
     private $_functionBuilder;
 
     /**
-     * @param FunctionBuilder $functionBuilder
+     * @param FunctionDefinitionBuilder $functionBuilder
      */
-    public function __construct(FunctionBuilder $functionBuilder)
+    public function __construct(FunctionDefinitionBuilder $functionBuilder)
     {
         $this->_functionBuilder = $functionBuilder;
     }

@@ -31,8 +31,8 @@
  *
  */
 namespace Mokka\Mock;
-use Mokka\ClassBuilder;
-use Mokka\FunctionBuilder;
+use Mokka\ClassDefinitionBuilder;
+use Mokka\FunctionDefinitionBuilder;
 use Mokka\Token;
 
 /**
@@ -77,7 +77,7 @@ class MockBuilder
      */
     private static function _getClass($mockClassname, $classname)
     {
-        $builder = new ClassBuilder(new FunctionBuilder());
+        $builder = new ClassDefinitionBuilder(new FunctionDefinitionBuilder());
         return $builder->build($mockClassname, $classname);
     }
 

@@ -30,7 +30,7 @@ class ArgumentComparator
             return true;
         }
         return $this->_comparatorLocator->getComparatorFor(
-            $argumentA->getValue(), $argumentB->getValue()
-        )->isEqual($argumentA->getValue(), $argumentB->getValue());
+            $argumentA->__mokka_getValue(), $argumentB->__mokka_getValue()
+        )->isEqual($argumentA->__mokka_getValue(), $argumentB->__mokka_getValue());
     }
 }

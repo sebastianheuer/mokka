@@ -95,7 +95,7 @@ class MockedMethod implements Method
         foreach ($this->_expectedArgs->getArguments() as $index => $expectedArgument) {
             if (!$actualArgs->hasArgumentAtPosition($index)) {
                 throw new VerificationException(
-                    $this, sprintf('Argument %s should be %s, is missing', $i, $expectedArgument->getValue())
+                    $this, sprintf('Argument %s should be %s, is missing', $i, $expectedArgument->__mokka_getValue())
                 );
             }
             $actualArgument = $actualArgs->getArgumentAtPosition($i);
@@ -105,8 +105,8 @@ class MockedMethod implements Method
                     sprintf(
                         'Argument %s should be %s, is %s',
                         $i,
-                        $expectedArgument->getValue(),
-                        $actualArgument->getValue()
+                        $expectedArgument->__mokka_getValue(),
+                        $actualArgument->__mokka_getValue()
                     )
                 );
             }

@@ -43,6 +43,6 @@ interface ArgumentInterface
     /**
      * @return mixed
      */
-    public function getValue();
+    public function __mokka_getValue();
 
 } 

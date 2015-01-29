@@ -1,7 +1,7 @@
 <?php
 namespace Mokka;
 
-class FunctionBuilder 
+class FunctionDefinitionBuilder
 {
     /**
      * @param \ReflectionMethod $method
