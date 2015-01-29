@@ -46,6 +46,6 @@ class AnythingArgumentTest extends \PHPUnit_Framework_TestCase
     public function testGetValueReturnsNull()
     {
         $argument = new AnythingArgument();
-        $this->assertNull($argument->getValue());
+        $this->assertNull($argument->__mokka_getValue());
     }
 }
