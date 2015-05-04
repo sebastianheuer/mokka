@@ -1,4 +1,5 @@
 #Mokka PHP Mocking Framework
+[![Build Status](https://travis-ci.org/belanur/mokka.svg?branch=master)](https://travis-ci.org/belanur/mokka)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/belanur/mokka?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 The goal of Mokka is to provide a lightweight framework for creating mocks and stubs. It's syntax is heavily inspired by the [Mockito Framework](https://code.google.com/p/mockito/).
