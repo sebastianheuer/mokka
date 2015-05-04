@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014, 2015 Sebastian Heuer <belanur@gmail.com>
+ * Copyright (c) 2014, 2015 Sebastian Heuer <sebastian@phpeople.de>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -35,8 +35,8 @@ namespace Mokka\Mock;
 use Mokka\Method\Invokation\InvokationRule;
 
 /**
- * @author     Sebastian Heuer <belanur@gmail.com>
- * @copyright  Sebastian Heuer <belanur@gmail.com>, All rights reserved.
+ * @author     Sebastian Heuer <sebastian@phpeople.de>
+ * @copyright  Sebastian Heuer <sebastian@phpeople.de>, All rights reserved.
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */

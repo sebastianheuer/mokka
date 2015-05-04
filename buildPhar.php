@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014, 2015 Sebastian Heuer <belanur@gmail.com>
+ * Copyright (c) 2014, 2015 Sebastian Heuer <sebastian@phpeople.de>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
