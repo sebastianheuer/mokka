@@ -29,6 +29,7 @@ class ArgumentComparator
         if ($argumentA instanceof AnythingArgument || $argumentB instanceof AnythingArgument) {
             return true;
         }
+
         return $this->_comparatorLocator->getComparatorFor(
             $argumentA->__mokka_getValue(), $argumentB->__mokka_getValue()
         )->isEqual($argumentA->__mokka_getValue(), $argumentB->__mokka_getValue());

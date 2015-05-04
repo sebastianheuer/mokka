@@ -38,7 +38,7 @@ namespace Mokka;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class Token 
+class Token
 {
     /**
      * @var string
@@ -48,9 +48,9 @@ class Token
     /**
      * @param null $value
      */
-    public function __construct($value = NULL)
+    public function __construct($value = null)
     {
-        if (NULL !== $value) {
+        if (null !== $value) {
             $this->_value = $value;
         } else {
             $this->_setValue();
@@ -64,7 +64,7 @@ class Token
     {
         $source = file_get_contents('/dev/urandom', false, null, null, 64);
         $source .= uniqid(uniqid(mt_rand(0, PHP_INT_MAX), true), true);
-        for ($t=0; $t<64; $t++) {
+        for ($t = 0; $t < 64; $t++) {
             $source .= chr((mt_rand() ^ mt_rand()) % 256);
         }
         $this->_value = sha1(hash('sha512', $source, true));

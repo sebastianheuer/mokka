@@ -66,7 +66,7 @@ trait Mock
     /**
      * @var bool
      */
-    private $_listeningForVerification = FALSE;
+    private $_listeningForVerification = false;
 
     /**
      * @var int|InvokationRule
@@ -76,7 +76,7 @@ trait Mock
     /**
      * @var bool
      */
-    private $_listeningForStub = FALSE;
+    private $_listeningForStub = false;
 
     /**
      * @var string
@@ -94,7 +94,7 @@ trait Mock
     private function __mokka_addMockedMethod(MockedMethod $method)
     {
         $this->__mokka_getMethods()->addMethod($method);
-        $this->_listeningForVerification = FALSE;
+        $this->_listeningForVerification = false;
     }
 
     /**
@@ -103,8 +103,8 @@ trait Mock
     private function __mokka_addStubbedMethod(StubbedMethod $method)
     {
         $this->__mokka_getStubs()->addMethod($method);
-        $this->_lastMethod = NULL;
-        $this->_listeningForStub = FALSE;
+        $this->_lastMethod = null;
+        $this->_listeningForStub = false;
     }
 
     /**
@@ -135,16 +135,16 @@ trait Mock
      */
     public function listenForStub()
     {
-        $this->_listeningForStub = TRUE;
+        $this->_listeningForStub = true;
     }
 
     /**
      * @param int|NULL|InvokationRule $invokationRule
      * @throws \InvalidArgumentException
      */
-    public function listenForVerification($invokationRule = NULL)
+    public function listenForVerification($invokationRule = null)
     {
-        if (NULL === $invokationRule) {
+        if (null === $invokationRule) {
             $invokationRule = new Once();
         } elseif (is_int($invokationRule)) {
             $invokationRule = new Exactly($invokationRule);
@@ -153,7 +153,7 @@ trait Mock
                 'Invokation Rule must be either NULL, an integer or implement InvokationRule interface'
             );
         }
-        $this->_listeningForVerification = TRUE;
+        $this->_listeningForVerification = true;
         $this->_invokationRule = $invokationRule;
     }
 
@@ -178,18 +178,19 @@ trait Mock
             if ($this->_listeningForVerification) {
                 $this->__mokka_addMockedMethod(new MockedMethod($methodName, $arguments, $this->_invokationRule));
             }
+
             return $this;
         }
 
         if ($this->__mokka_getMethods()->hasMethod($methodName, $arguments)) {
             $this->__mokka_getMethods()->getMethod($methodName, $arguments)->call($arguments);
         }
-        
+
         if ($this->__mokka_getStubs()->hasMethod($methodName, $arguments)) {
             return $this->__mokka_getStubs()->getMethod($methodName, $arguments)->call($arguments);
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -197,9 +198,10 @@ trait Mock
      */
     private function __mokka_getMethods()
     {
-        if (NULL === $this->_methods) {
+        if (null === $this->_methods) {
             $this->_methods = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         }
+
         return $this->_methods;
     }
 
@@ -208,9 +210,10 @@ trait Mock
      */
     private function __mokka_getStubs()
     {
-        if (NULL === $this->_stubs) {
+        if (null === $this->_stubs) {
             $this->_stubs = new MethodCollection(new ArgumentComparator(new ComparatorLocator()));
         }
+
         return $this->_stubs;
     }
 

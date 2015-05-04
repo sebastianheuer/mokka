@@ -72,6 +72,7 @@ class Mokka
     public static function when(MockInterface $mock)
     {
         $mock->listenForStub();
+
         return $mock;
     }
 
@@ -81,9 +82,10 @@ class Mokka
      * @throws \InvalidArgumentException
      * @return MockInterface
      */
-    public static function verify(MockInterface $mock, $expectedInvokationCount = NULL)
+    public static function verify(MockInterface $mock, $expectedInvokationCount = null)
     {
         $mock->listenForVerification($expectedInvokationCount);
+
         return $mock;
     }
 
@@ -92,9 +94,10 @@ class Mokka
      */
     private static function _getMockBuilder()
     {
-        if (NULL === static::$_mockBuilder) {
+        if (null === static::$_mockBuilder) {
             static::$_mockBuilder = new MockBuilder();
         }
+
         return static::$_mockBuilder;
     }
 

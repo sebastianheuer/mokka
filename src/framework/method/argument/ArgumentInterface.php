@@ -38,7 +38,7 @@ namespace Mokka\Method;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-interface ArgumentInterface 
+interface ArgumentInterface
 {
     /**
      * @return mixed

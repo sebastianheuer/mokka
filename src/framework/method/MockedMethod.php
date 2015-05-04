@@ -112,7 +112,8 @@ class MockedMethod implements Method
             }
             $i++;
         }
-        return NULL;
+
+        return null;
     }
 
     public function verify()

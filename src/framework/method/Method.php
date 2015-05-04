@@ -38,7 +38,7 @@ namespace Mokka\Method;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-interface Method 
+interface Method
 {
     /**
      * @param ArgumentCollection $actualArgs

@@ -17,7 +17,7 @@ class FunctionDefinitionBuilder
             foreach ($method->getParameters() as $parameter) {
 
                 $type = '';
-                if ($parameter->getClass() !== NULL) {
+                if ($parameter->getClass() !== null) {
                     $type = $parameter->getClass()->getName();
                 } elseif ($parameter->isArray()) {
                     $type = 'array';
@@ -25,7 +25,7 @@ class FunctionDefinitionBuilder
 
                 $default = '';
                 if ($parameter->isDefaultValueAvailable()) {
-                    if (NULL === $parameter->getDefaultValue()) {
+                    if (null === $parameter->getDefaultValue()) {
                         $default = '= NULL';
                     } else {
                         $default = sprintf("='%s'", $parameter->getDefaultValue());
@@ -39,6 +39,7 @@ class FunctionDefinitionBuilder
             $arguments = rtrim($arguments, ',');
         }
         $functionDefinition = str_replace('%arguments%', $arguments, $functionDefinition);
+
         return $functionDefinition;
     }
 } 

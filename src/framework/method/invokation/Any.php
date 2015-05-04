@@ -48,7 +48,7 @@ class Any implements InvokationRule
      */
     public function isValidInvokationCount($count)
     {
-        return TRUE;
+        return true;
     }
 
     /**

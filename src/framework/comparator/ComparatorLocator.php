@@ -17,6 +17,7 @@ class ComparatorLocator
         if (is_object($valueA) && is_object($valueB)) {
             return new ObjectComparator($this);
         }
+
         return new DefaultComparator();
     }
 }

@@ -84,6 +84,7 @@ class ArgumentCollection
         if (!$this->hasArgumentAtPosition($position)) {
             throw new NotFoundException(sprintf('No Argument at position %s', $position));
         }
+
         return $this->_arguments[$position];
     }
 

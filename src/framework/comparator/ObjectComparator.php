@@ -43,6 +43,7 @@ class ObjectComparator implements ComparatorInterface
                 return false;
             }
         }
+
         return true;
     }
 

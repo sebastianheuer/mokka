@@ -19,10 +19,10 @@ class DomNodeComparator implements ComparatorInterface
             return $node->C14N();
         }
         $dom = new \DOMDocument();
-        $dom->appendChild($dom->importNode($node, TRUE));
+        $dom->appendChild($dom->importNode($node, true));
+
         return $dom->C14N();
     }
-
 
 
 }

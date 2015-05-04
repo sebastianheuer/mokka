@@ -31,7 +31,9 @@
  *
  */
 namespace Mokka\Mock;
+
 use Mokka\ClassDefinitionBuilder;
+use Mokka\ClassTemplateLoader;
 use Mokka\FunctionDefinitionBuilder;
 use Mokka\Token;
 
@@ -41,7 +43,7 @@ use Mokka\Token;
  * @license    BSD License
  * @link       https://github.com/belanur/mokka
  */
-class MockBuilder 
+class MockBuilder
 {
     /**
      * Create a mock object for the given class
@@ -51,12 +53,12 @@ class MockBuilder
      */
     public function getMock($classname)
     {
-        $mockClassname = self::_getMockClassname($classname);
-        $classDefinition = self::_getClass($mockClassname, $classname);
-        /* TODO this is probably the most evil line of code I have ever written.
-           Maybe there is a nicer way to dynamically create a class */
+        $mockClassname = $this->getMockClassname($classname);
+        $classDefinition = $this->getClassDefinition($mockClassname, $classname);
+        /* This is probably the most evil line of code I have ever written.
+           TODO Maybe there is a nicer way to dynamically create a class */
         eval($classDefinition);
-        /** @var MockInterface $mock */
+
         return new $mockClassname();
     }
 
@@ -64,9 +66,10 @@ class MockBuilder
      * @param string $originalClassname
      * @return string
      */
-    private function _getMockClassname($originalClassname)
+    private function getMockClassname($originalClassname)
     {
         $originalClassname = str_replace('\\', '_', $originalClassname);
+
         return sprintf('Mokka_Mocked_%s_%s', $originalClassname, (string)new Token());
     }
 
@@ -75,9 +78,12 @@ class MockBuilder
      * @param string $classname
      * @return string
      */
-    private static function _getClass($mockClassname, $classname)
+    private static function getClassDefinition($mockClassname, $classname)
     {
-        $builder = new ClassDefinitionBuilder(new FunctionDefinitionBuilder());
+        $builder = new ClassDefinitionBuilder(
+            new FunctionDefinitionBuilder(), new ClassTemplateLoader(__DIR__ . '/../builder/template')
+        );
+
         return $builder->build($mockClassname, $classname);
     }
 

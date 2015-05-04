@@ -63,6 +63,7 @@ class StubbedMethod extends MockedMethod
     public function call(ArgumentCollection $actualArgs)
     {
         parent::call($actualArgs);
+
         return $this->_returnValue;
     }
 

@@ -6,45 +6,46 @@ class ClassDefinitionBuilder
     /**
      * @var FunctionDefinitionBuilder
      */
-    private $_functionBuilder;
+    private $functionBuilder;
+
+    /**
+     * @var ClassTemplateLoader
+     */
+    private $classTemplateLoader;
 
     /**
      * @param FunctionDefinitionBuilder $functionBuilder
+     * @param ClassTemplateLoader $templateLoader
      */
-    public function __construct(FunctionDefinitionBuilder $functionBuilder)
+    public function __construct(FunctionDefinitionBuilder $functionBuilder, ClassTemplateLoader $templateLoader)
     {
-        $this->_functionBuilder = $functionBuilder;
+        $this->functionBuilder = $functionBuilder;
+        $this->classTemplateLoader = $templateLoader;
     }
 
     /**
      * @param string $mockClassname
      * @param string $classname
-     * @return mixed|string
+     * @return string
      */
     public function build($mockClassname, $classname)
     {
         $reflection = new \ReflectionClass($classname);
-        if ($reflection->isInterface()) {
-            $classDefinition = file_get_contents(__DIR__ . '/template/Interface.php.template');
-        } else {
-            $classDefinition = file_get_contents(__DIR__ . '/template/Class.php.template');
-        }
+        $classDefinition = $this->classTemplateLoader->loadTemplateForClass($reflection);
         $classDefinition = str_replace('%className%', $mockClassname, $classDefinition);
         $classDefinition = str_replace('%mockedClass%', $classname, $classDefinition);
 
         $functions = array();
         foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
-            // TODO eval can't handle methods with the names echo and eval
-            if ($method->getName() == 'echo' || $method->getName() == 'eval') {
-                continue;
-            }
             if ($method->isFinal() || $method->isStatic()) {
                 continue;
             }
-            $functions[] = $this->_functionBuilder->build($method);
+            $functions[] = $this->functionBuilder->build($method);
         }
         $classDefinition = str_replace('%functions%', implode("\n", $functions), $classDefinition);
+
         return $classDefinition;
     }
+
 
 } 

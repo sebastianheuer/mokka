@@ -58,6 +58,7 @@ abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
     {
         $mock = Mokka::mock($classname);
         $this->_mocks[] = $mock;
+
         return $mock;
     }
 
@@ -75,7 +76,7 @@ abstract class MokkaTestCase extends \PHPUnit_Framework_TestCase
      * @param null|int|InvokationRule $expectedInvokationCount
      * @return MockInterface
      */
-    public function verify(MockInterface $mock, $expectedInvokationCount = NULL)
+    public function verify(MockInterface $mock, $expectedInvokationCount = null)
     {
         return Mokka::verify($mock, $expectedInvokationCount);
     }

@@ -31,6 +31,7 @@
  *
  */
 namespace Mokka\Method;
+
 use Mokka\Comparator\ArgumentComparator;
 use Mokka\NotFoundException;
 
@@ -81,22 +82,22 @@ class MethodCollection implements \Countable
      */
     public function hasMethod($methodName, ArgumentCollection $arguments)
     {
-        foreach ($this->_methods as $key => $method)
-        {
+        foreach ($this->_methods as $key => $method) {
             if ($method->getName() !== $methodName) {
                 continue;
             }
-            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
-            {
+            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument) {
                 if (!$this->_argumentComparator->isEqual(
                     $expectedArgument, $arguments->getArgumentAtPosition($index))
                 ) {
                     continue 2;
                 }
             }
-            return TRUE;
+
+            return true;
         }
-        return FALSE;
+
+        return false;
     }
 
     /**
@@ -107,19 +108,18 @@ class MethodCollection implements \Countable
      */
     public function getMethod($methodName, ArgumentCollection $arguments)
     {
-        foreach ($this->_methods as $key => $method)
-        {
+        foreach ($this->_methods as $key => $method) {
             if ($method->getName() !== $methodName) {
                 continue;
             }
-            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument)
-            {
+            foreach ($method->getArguments()->getArguments() as $index => $expectedArgument) {
                 if (!$this->_argumentComparator->isEqual(
                     $expectedArgument, $arguments->getArgumentAtPosition($index))
                 ) {
                     continue 2;
                 }
             }
+
             return $method;
         }
         throw new NotFoundException('No matching Method found');

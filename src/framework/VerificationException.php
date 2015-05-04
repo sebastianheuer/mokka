@@ -31,6 +31,7 @@
  *
  */
 namespace Mokka;
+
 use Exception;
 use Mokka\Method\Method;
 
