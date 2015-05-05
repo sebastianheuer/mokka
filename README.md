@@ -26,7 +26,7 @@ Simply add belanur/mokka to the ```composer.json``` of your project. Since there
 
 Note: Make sure to have ```phar.readonly = Off``` in your php.ini. Otherwise building Phars is not possible.
 
-You can run ```php buildPhar.php``` to build a Phar package. It will be put in `/build/mokka.phar`. You can then include it in your projects:
+You can run ```php build/buildPhar.php``` to build a Phar package. It will be put in `/build/mokka.phar`. You can then include it in your projects:
 
 ```php
 <?php
