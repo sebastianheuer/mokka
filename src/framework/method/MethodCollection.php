@@ -87,9 +87,7 @@ class MethodCollection implements \Countable
                 continue;
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument) {
-                if (!$this->_argumentComparator->isEqual(
-                    $expectedArgument, $arguments->getArgumentAtPosition($index))
-                ) {
+                if (!$this->_doArgumentsMatch($index, $expectedArgument, $arguments)) {
                     continue 2;
                 }
             }
@@ -113,9 +111,7 @@ class MethodCollection implements \Countable
                 continue;
             }
             foreach ($method->getArguments()->getArguments() as $index => $expectedArgument) {
-                if (!$this->_argumentComparator->isEqual(
-                    $expectedArgument, $arguments->getArgumentAtPosition($index))
-                ) {
+                if (!$this->_doArgumentsMatch($index, $expectedArgument, $arguments)) {
                     continue 2;
                 }
             }
@@ -154,5 +150,18 @@ class MethodCollection implements \Countable
         if (!$this->_hasBeenVerified) {
             $this->verify();
         }
+    }
+
+    /**
+     * @param int $index
+     * @param mixed $expectedArgument
+     * @param ArgumentCollection $actualArguments
+     * @return bool
+     * @throws NotFoundException
+     */
+    private function _doArgumentsMatch($index, $expectedArgument, ArgumentCollection $actualArguments)
+    {
+        return $actualArguments->hasArgumentAtPosition($index) &&
+            $this->_argumentComparator->isEqual($expectedArgument, $actualArguments->getArgumentAtPosition($index));
     }
 } 

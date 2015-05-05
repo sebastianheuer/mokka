@@ -33,7 +33,11 @@
 namespace Mokka\Tests;
 use Mokka\Comparator\ArgumentComparator;
 use Mokka\Comparator\ComparatorLocator;
+use Mokka\Method\ArgumentCollection;
+use Mokka\Method\Invokation\Once;
 use Mokka\Method\MethodCollection;
+use Mokka\Method\MockedMethod;
+use Mokka\Method\StubbedMethod;
 
 /**
  * @author     Sebastian Heuer <sebastian@phpeople.de>
@@ -59,6 +63,51 @@ class MethodCollectionTest extends \PHPUnit_Framework_TestCase
         $method = new MethodMock();
         $this->_collection->addMethod($method);
         $this->assertAttributeEquals(array($method), '_methods', $this->_collection);
+    }
+
+    public function testHasMethod()
+    {
+        $this->_collection->addMethod(new StubbedMethod('doBar', new ArgumentCollection(), 'foo'));
+        $this->_collection->addMethod(new StubbedMethod('doFoo', new ArgumentCollection(['foo']), 'foo'));
+        $method = new StubbedMethod('doFoo', new ArgumentCollection(), 'foo');
+        $this->assertFalse($this->_collection->hasMethod('doFoo', new ArgumentCollection()));
+        $this->_collection->addMethod($method);
+        $this->assertTrue($this->_collection->hasMethod('doFoo', new ArgumentCollection()));
+    }
+
+    /**
+     * @expectedException \Mokka\NotFoundException
+     */
+    public function testGetMethodThrowsExceptionIfMethodWasNotFound()
+    {
+        $this->_collection->getMethod('doFoo', new ArgumentCollection());
+    }
+
+    /**
+     * @expectedException \Mokka\NotFoundException
+     */
+    public function testGetMethodTHrowsExceptionIfArgumentCollectionsDoNotMatch()
+    {
+        $method = new StubbedMethod('doFoo', new ArgumentCollection(['foo']), 'foo');
+        $this->_collection->addMethod($method);
+        $this->_collection->getMethod('doFoo', new ArgumentCollection());
+    }
+
+    public function testGetMethod()
+    {
+        $this->_collection->addMethod(new StubbedMethod('doBar', new ArgumentCollection(), 'foo'));
+        $method = new StubbedMethod('doFoo', new ArgumentCollection(), 'foo');
+        $this->_collection->addMethod($method);
+        $this->assertSame($method, $this->_collection->getMethod('doFoo', new ArgumentCollection()));
+    }
+
+    public function testCount()
+    {
+        $this->assertSame(0, $this->_collection->count());
+        $this->_collection->addMethod(new StubbedMethod('doBar', new ArgumentCollection(), 'foo'));
+        $this->assertSame(1, $this->_collection->count());
+        $this->_collection->addMethod(new StubbedMethod('doFoo', new ArgumentCollection(), 'foo'));
+        $this->assertSame(2, $this->_collection->count());
     }
 
 
