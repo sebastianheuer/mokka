@@ -93,7 +93,7 @@ class FooTest extends PHPUnit_Framework_TestCase
 }
 ```
 
-However Mokka also comes with the `MokkaTestCase` class, which acts as a proxy:
+However it is recommended to use the `MokkaTestCase` class, which acts as a proxy:
 
 ```php
 <?php
